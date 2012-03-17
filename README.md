@@ -1,6 +1,6 @@
 # Modularity::Rails
 
-Makes the (Modularity CoffeeScript)[http://github.com/kevgo/modularity-coffeescript] library available to 
+Makes the [Modularity CoffeeScript](http://github.com/kevgo/modularity-coffeescript) library available to 
 Rails 3.1 applications. 
 
 
