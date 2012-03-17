@@ -26,6 +26,7 @@ The easiest way is to add it to `application.js`:
  *= require jquery
  *= require modularity
  */
+```
 
 
 ## Usage
