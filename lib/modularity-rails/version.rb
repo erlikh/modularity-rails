@@ -1,5 +1,3 @@
-module Modularity
-  module Rails
-    VERSION = "0.0.1"
-  end
+module ModularityRails
+  VERSION = "0.0.1"
 end

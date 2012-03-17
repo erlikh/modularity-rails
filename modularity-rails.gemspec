@@ -1,17 +1,22 @@
-# -*- encoding: utf-8 -*-
-require File.expand_path('../lib/modularity-rails/version', __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
 
-Gem::Specification.new do |gem|
-  gem.authors       = ["Kevin Goslar"]
-  gem.email         = ["kevin.goslar@gmail.com"]
-  gem.description   = %q{Provides the Modularity CoffeeScript library to Rails applications.}
-  gem.summary       = %q{Makes the Modularity CoffeeScript library available to the Asset Pipeline in modern Rails projects.}
-  gem.homepage      = "http://github.com/kevgo/modularity-rails"
+# Maintain your gem's version:
+require "modularity-rails/version"
 
-  gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "modularity-rails"
-  gem.require_paths = ["lib"]
-  gem.version       = Modularity::Rails::VERSION
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name        = "modularity-rails"
+  s.version     = ModularityRails::VERSION
+  s.authors     = ["TODO: Your name"]
+  s.email       = ["TODO: Your email"]
+  s.homepage    = "TODO"
+  s.summary     = "TODO: Summary of ModularityRails."
+  s.description = "TODO: Description of ModularityRails."
+
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["test/**/*"]
+
+  s.add_dependency "rails", "~> 3.2.2"
+
+  s.add_development_dependency "sqlite3"
 end
