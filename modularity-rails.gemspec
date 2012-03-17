@@ -1,22 +1,18 @@
-$:.push File.expand_path("../lib", __FILE__)
+# -*- encoding: utf-8 -*-
+require File.expand_path('../lib/modularity-rails/version', __FILE__)
 
-# Maintain your gem's version:
-require "modularity-rails/version"
-
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "modularity-rails"
   s.version     = ModularityRails::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ModularityRails."
-  s.description = "TODO: Description of ModularityRails."
+  s.authors     = ["Kevin Goslar"]
+  s.email       = ["kevin.goslar@gmail.com"]
+  s.homepage    = "http://github.com/kevgo/modularity-rails"
+  s.summary     = "Summary of ModularityRails."
+  s.description = "Description of ModularityRails."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.add_dependency "rails", ">= 3.1.0"
 
-  s.add_dependency "rails", "~> 3.2.2"
-
-  s.add_development_dependency "sqlite3"
+  s.files        = `git ls-files`.split("\n")
+  s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
+  s.require_path = 'lib'
 end
