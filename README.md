@@ -1,24 +1,37 @@
 # Modularity::Rails
 
-TODO: Write a gem description
+Makes the (Modularity CoffeeScript)[http://github.com/kevgo/modularity-coffeescript] library available to 
+Rails 3.1 applications. 
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
-
-    gem 'modularity-rails'
+                         
+```ruby
+gem 'modularity-rails'
+```
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
-Or install it yourself as:
+Finally, you have to load the modularity file into your application's javascript.
+The easiest way is to add it to `application.js`:
 
-    $ gem install modularity-rails
+```javascript
+/**                   
+ *= require jquery
+ *= require modularity
+ */
+
 
 ## Usage
 
-TODO: Write usage instructions here
+See [http://github.com/kevgo/modularity-coffeescript].
+
 
 ## Contributing
 
