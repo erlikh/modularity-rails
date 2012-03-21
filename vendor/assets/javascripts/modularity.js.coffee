@@ -8,12 +8,12 @@ class window.Module
 
   # The container variable is required. Provide 'null' in tests.
   constructor: (@container) ->
-    alert('Module constructor: No container given.') unless @container? and @container.length > 0
+    alert 'Error in Module constructor: No container given.' unless @container?
+    alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'
+    alert 'Error in Module constructor: The given container (#{container.selector}) is empty.' unless @container? and @container.length > 0
 
-  # Checks whether the given condition is true. 
-  # Shows an alert with the given message if not.    
-  assert: (condition, message) ->
-    alert(message) unless condition? and condition.length > 0
+
+  # MODULE EVENTS.
 
   # Calls the given function when this widget fires the given local event.
   bind_event: (event_type, callback) =>
@@ -24,6 +24,9 @@ class window.Module
   fire_event: (event_type, data) =>
     @assert event_type, 'Module.fire_event: You must provide the event type to fire.'
     @container.trigger event_type, data or {}
+
+
+  # GLOBAL EVENTS.
 
   # Subscribes to the given global event, 
   # i.e. calls the given function when the given global event type happens.
@@ -39,3 +42,24 @@ class window.Module
   # Returns the DOM object that is used to fire global events on.
   global_event_container: =>
     @global_event_container_cache or= $(window)
+
+
+# jQuery integration for creating Modules.
+#
+# Call like this: myModule = $('...').module(MyModuleClass)
+#
+# Parameters:
+# * klass: the class of the Module to instantiate
+# * any additional parameters are forwarded to the Module constructor.
+# Returns the created module instance.
+#
+# Messages errors in alert boxes.
+#
+jQuery.fn.module = (klass, args...) ->
+
+  # Check parameters.
+  if typeof klass != 'function'
+    return alert "ERROR!\n\nYou must provide the Module class when calling $.module().\n\nExample: $('...').module(MyModuleClass)\n\nYou provided: #{klass} (#{typeof klass})" 
+
+  # Instantiate the class and return the instance.
+  new klass(this, args...)
