@@ -18,6 +18,8 @@ describe 'modularity loader', ->
 
 describe 'modularity', ->
 
+  template 'test.html'
+
   describe 'constructor', ->
 
     beforeEach ->
@@ -73,3 +75,25 @@ describe 'modularity', ->
       module.assert '123', 'Message'
       expect(alert).not.toHaveBeenCalled()
 
+
+  describe 'jQuery Integration', ->
+
+    beforeEach ->
+      spyOn window, 'alert'
+
+    it 'works', ->
+      $('#module_container').module(Module)
+      expect(alert).not.toHaveBeenCalled()
+
+    it 'returns the created instance', ->
+      result = $('#module_container').module(Module)
+      expect(result).toBeDefined()
+      expect(typeof result).toEqual('object')
+
+    it 'returns an error if the given parameter is not a class', ->
+      $('#test').module()
+      expect(alert).toHaveBeenCalled()
+
+    it 'returns an error if the jQuery object is empty.', ->
+      $('#zonk').module(Module)
+      expect(alert).toHaveBeenCalled()
