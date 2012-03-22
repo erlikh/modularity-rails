@@ -18,6 +18,7 @@ loadModularity = (callback) ->
 describe 'modularity', ->
 
   describe 'constructor', ->
+
     beforeEach ->
       spyOn window, 'alert'
 
@@ -40,3 +41,36 @@ describe 'modularity', ->
       loadModularity ->
         new Module('testing')
         expect(alert).not.toHaveBeenCalled()
+
+  describe 'assert', ->
+
+    module = null
+
+    beforeEach ->
+      spyOn window, 'alert'
+      module = new Module('testing')
+
+    it 'shows an alert with the given message if the given condition is false', ->
+      module.assert false, 'Message'
+      expect(alert).toHaveBeenCalledWith("Message")
+
+    it 'fails when the condition is null', ->
+      module.assert null, 'Message'
+      expect(alert).toHaveBeenCalledWith("Message")
+
+    it 'fails when the condition is undefined', ->
+      module.assert undefined, 'Message'
+      expect(alert).toHaveBeenCalledWith("Message")
+
+    it 'fails when the condition is an empty array', ->
+      module.assert [], 'Message'
+      expect(alert).toHaveBeenCalledWith("Message")
+
+    it 'fails when the condition is an empty string', ->
+      module.assert '', 'Message'
+      expect(alert).toHaveBeenCalledWith("Message")
+
+    it 'passes when the condition is a string', ->
+      module.assert '123', 'Message'
+      expect(alert).not.toHaveBeenCalled()
+

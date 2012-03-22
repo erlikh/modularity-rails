@@ -13,6 +13,10 @@ class window.Module
       return alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'
       return alert "Error in Module constructor: The given container ('#{container.selector}') is empty." unless @container? and @container.length > 0
 
+  # Checks whether the given condition is true.
+  # Shows an alert with the given message if not.
+  assert: (condition, message) ->
+    alert(message) unless condition?.length > 0
 
   # MODULE EVENTS.
 
