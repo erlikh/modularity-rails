@@ -16,7 +16,7 @@ class window.Module
 
   # Checks whether the given condition is true.
   # Shows an alert with the given message if not.
-  assert: (condition, message) ->
+  @assert: (condition, message) ->
     condition_ok = condition?.length > 0
     alert(message) unless condition_ok
     condition_ok
@@ -25,13 +25,13 @@ class window.Module
 
   # Calls the given function when this widget fires the given local event.
   bind_event: (event_type, callback) =>
-    return unless @assert event_type, "Module.bind_event: parameter 'event_type' is empty"
+    return unless Module.assert event_type, "Module.bind_event: parameter 'event_type' is empty"
     return alert "Module.bind_event: parameter 'callback' must be a function, #{callback} (#{typeof callback}) given." unless typeof callback == 'function'
     @container.bind event_type, callback
 
   # Fires the given local event with the given data payload.
   fire_event: (event_type, data) =>
-    @assert event_type, 'Module.fire_event: You must provide the event type to fire.'
+    Module.assert event_type, 'Module.fire_event: You must provide the event type to fire.'
     return alert("Module.fire_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
     @container.trigger event_type, data ?= {}
 
@@ -40,20 +40,19 @@ class window.Module
 
   # Subscribes to the given global event, 
   # i.e. calls the given function when the given global event type happens.
-  bind_global_event: (event_type, callback) =>
+  @bind_global_event: (event_type, callback) =>
     return unless @assert event_type, "Module.bind_global_event: parameter 'event_type' is empty"
     return alert "Module.bind_global_event: parameter 'callback' must be a function, #{callback} (#{typeof callback}) given." unless typeof callback == 'function'
     @global_event_container().bind event_type, callback
 
   # Fires the given global event with the given data payload.
-  fire_global_event: (event_type, data) =>
+  @fire_global_event: (event_type, data) =>
     @assert event_type, 'Module.fire_global_event: You must provide the event type to fire.'
     return alert("Module.fire_global_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
     @global_event_container().trigger event_type, data ?= []
 
   # Returns the DOM object that is used to fire global events on.
-  global_event_container: =>
-    @global_event_container_cache or= $(window)
+  @global_event_container: => @global_event_container_cache or= $(window)
 
 
 # jQuery integration for creating Modules.
