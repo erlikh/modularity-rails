@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.description = "Description of ModularityRails."
 
   s.add_dependency "rails", ">= 3.1.0"
+  s.add_development_dependency "capybara-webkit"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
