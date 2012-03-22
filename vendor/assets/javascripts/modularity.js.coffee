@@ -17,7 +17,9 @@ class window.Module
   # Checks whether the given condition is true.
   # Shows an alert with the given message if not.
   assert: (condition, message) ->
-    alert(message) unless condition?.length > 0
+    condition_ok = condition?.length > 0
+    alert(message) unless condition_ok
+    condition_ok
 
   # MODULE EVENTS.
 
@@ -29,7 +31,8 @@ class window.Module
   # Fires the given local event with the given data payload.
   fire_event: (event_type, data) =>
     @assert event_type, 'Module.fire_event: You must provide the event type to fire.'
-    @container.trigger event_type, data or {}
+    return alert("Module.fire_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
+    @container.trigger event_type, data ?= {}
 
 
   # GLOBAL EVENTS.

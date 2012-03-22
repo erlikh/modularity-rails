@@ -79,6 +79,12 @@ describe 'modularity', ->
       module.assert '123', 'Message'
       expect(alert).not.toHaveBeenCalled()
 
+    it "returns false if the condition doesn't pass", ->
+      expect(module.assert(false)).toBeFalsy()
+
+    it "returns true if the condition passes", ->
+      expect(module.assert('123')).toBeTruthy()
+
 
   describe 'jQuery Integration', ->
 
@@ -101,3 +107,40 @@ describe 'modularity', ->
     it 'returns an error if the jQuery object is empty.', ->
       $('#zonk').module(Module)
       expect(alert).toHaveBeenCalled()
+
+  describe 'fire_event', ->
+
+    # Variables that should be accessible in both the beforeEach block and the tests.
+    module = null
+    mockContainer = null
+
+    beforeEach ->
+      mockContainer = $('#module_container')
+      spyOn mockContainer, 'trigger'
+      module = new Module(mockContainer)
+
+    it 'triggers a custom jQuery event with the given event type on the container object', ->
+      module.fire_event 'event type', 'event data'
+      expect(mockContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
+
+    describe 'when no payload is given', ->
+      it 'provides an empty object as payload', ->
+        module.fire_event 'event type'
+        expect(mockContainer.trigger).toHaveBeenCalled()
+        expect(mockContainer.trigger.argsForCall[0][1]).toEqual({})
+
+      it "doesn't change the original payload variable", ->
+        data = undefined
+        module.fire_event 'event type', data
+        expect(data).toBeUndefined
+
+    it 'provides 0 as payload if 0 is given', ->
+      module.fire_event 'event type', 0
+      expect(mockContainer.trigger).toHaveBeenCalled()
+      expect(mockContainer.trigger.argsForCall[0][1]).toEqual(0)
+
+    it 'throws an error if the given event type is not a string', ->
+      spyOn window, 'alert'
+      module.fire_event {}
+      expect(mockContainer.trigger).not.toHaveBeenCalled()
+      expect(window.alert).toHaveBeenCalled()
