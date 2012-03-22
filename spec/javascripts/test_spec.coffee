@@ -37,6 +37,10 @@ describe 'modularity', ->
       new Module($('.zonk'))
       expect(alert).toHaveBeenCalledWith("Error in Module constructor: The given container ('.zonk') is empty.")
 
+    it 'shows an error if the container has more than one elements', ->
+      new Module($('.double'))
+      expect(alert).toHaveBeenCalled()
+
     it "allows to provide 'testing' in tests", ->
       new Module('testing')
       expect(alert).not.toHaveBeenCalled()

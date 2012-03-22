@@ -12,6 +12,7 @@ class window.Module
     if @container != 'testing'
       return alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'
       return alert "Error in Module constructor: The given container ('#{container.selector}') is empty." unless @container? and @container.length > 0
+      return alert "Error in Module constructor: The given container ('#{container.selector}') has more than one element." unless @container? and @container.length == 1
 
   # Checks whether the given condition is true.
   # Shows an alert with the given message if not.
