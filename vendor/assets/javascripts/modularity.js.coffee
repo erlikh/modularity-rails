@@ -41,13 +41,15 @@ class window.Module
   # Subscribes to the given global event, 
   # i.e. calls the given function when the given global event type happens.
   bind_global_event: (event_type, callback) =>
-    @assert event_type, "Module.bind_global_event: parameter 'event_type' is empty"
+    return unless @assert event_type, "Module.bind_global_event: parameter 'event_type' is empty"
+    return alert "Module.bind_global_event: parameter 'callback' must be a function, #{callback} (#{typeof callback}) given." unless typeof callback == 'function'
     @global_event_container().bind event_type, callback
 
   # Fires the given global event with the given data payload.
   fire_global_event: (event_type, data) =>
     @assert event_type, 'Module.fire_global_event: You must provide the event type to fire.'
-    @global_event_container().trigger event_type, data or []
+    return alert("Module.fire_global_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
+    @global_event_container().trigger event_type, data ?= []
 
   # Returns the DOM object that is used to fire global events on.
   global_event_container: =>
