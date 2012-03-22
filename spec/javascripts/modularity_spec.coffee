@@ -13,7 +13,7 @@ loadCS = (url, callback) ->
 # Helper method to load the modularity library before the tests.
 describe 'modularity loader', ->
   it 'loading Modularity library ...', ->
-    loadCS '/vendor/assets/javascripts/modularity.js.coffee'
+    loadCS '/vendor/assets/javascripts/modularity.js.coffee?'+(new Date()).getTime()
 
 
 describe 'modularity', ->
