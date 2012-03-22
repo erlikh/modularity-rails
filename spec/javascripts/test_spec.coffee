@@ -17,10 +17,29 @@ loadModularity = (callback) ->
 
 describe 'modularity', ->
 
-    describe 'constructor', ->
+  describe 'constructor', ->
 
-      it 'shows an error if no container is given', ->
-        loadModularity ->
-          spyOn window, 'alert'
-          new Module()
-          expect(alert).toHaveBeenCalledWith('Error in Module constructor: No container given.')
+    it 'shows an error if no container is given', ->
+      loadModularity ->
+        spyOn window, 'alert'
+        new Module()
+        expect(alert).toHaveBeenCalledWith('Error in Module constructor: No container given.')
+
+    it 'shows an error if the container is not a jQuery object', ->
+      loadModularity ->
+        spyOn window, 'alert'
+        new Module({})
+        expect(alert).toHaveBeenCalledWith('Error in Module constructor: The given container must be a jQuery object.')
+
+    it 'shows an error if the container is an empty jQuery object', ->
+      loadModularity ->
+        spyOn window, 'alert'
+        new Module($('.zonk'))
+        expect(alert).toHaveBeenCalledWith("Error in Module constructor: The given container ('.zonk') is empty.")
+
+    it "allows to provide 'testing' in tests", ->
+      loadModularity ->
+        spyOn window, 'alert'
+        new Module('testing')
+        expect(alert).not.toHaveBeenCalled()
+

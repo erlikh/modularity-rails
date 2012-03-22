@@ -6,11 +6,12 @@
 
 class window.Module
 
-  # The container variable is required. Provide 'null' in tests.
+  # The container variable is required. Provide 'testing' in tests.
   constructor: (@container) ->
     return alert 'Error in Module constructor: No container given.' unless @container?
-    return alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'
-    return alert 'Error in Module constructor: The given container (#{container.selector}) is empty.' unless @container? and @container.length > 0
+    if @container != 'testing'
+      return alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'
+      return alert "Error in Module constructor: The given container ('#{container.selector}') is empty." unless @container? and @container.length > 0
 
 
   # MODULE EVENTS.
