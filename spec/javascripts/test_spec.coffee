@@ -27,15 +27,15 @@ describe 'modularity', ->
 
     it 'shows an error if no container is given', ->
       new Module()
-      expect(alert).toHaveBeenCalledWith('Error in Module constructor: No container given.')
+      expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container is not a jQuery object', ->
       new Module({})
-      expect(alert).toHaveBeenCalledWith('Error in Module constructor: The given container must be a jQuery object.')
+      expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container is an empty jQuery object', ->
       new Module($('.zonk'))
-      expect(alert).toHaveBeenCalledWith("Error in Module constructor: The given container ('.zonk') is empty.")
+      expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container has more than one elements', ->
       new Module($('.double'))
