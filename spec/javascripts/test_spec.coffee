@@ -10,13 +10,17 @@ loadCS = (url, callback) ->
       eval CoffeeScript.compile data
       callback()
 
+# Helper method that loads the Modularity file in tests.
+loadModularity = (callback) ->
+  loadCS '/vendor/assets/javascripts/modularity.js.coffee', callback
+
 
 describe 'modularity', ->
 
     describe 'constructor', ->
 
       it 'shows an error if no container is given', ->
-        loadCS '/vendor/assets/javascripts/modularity.js.coffee', (data) ->
+        loadModularity ->
           spyOn window, 'alert'
           new Module()
           expect(alert).toHaveBeenCalledWith('Error in Module constructor: No container given.')
