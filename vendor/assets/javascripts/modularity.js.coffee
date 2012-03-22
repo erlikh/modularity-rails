@@ -25,7 +25,8 @@ class window.Module
 
   # Calls the given function when this widget fires the given local event.
   bind_event: (event_type, callback) =>
-    @assert event_type, "Module.bind_event: parameter 'event_type' is empty"
+    return unless @assert event_type, "Module.bind_event: parameter 'event_type' is empty"
+    return alert "Module.bind_event: parameter 'callback' must be a function, #{callback} (#{typeof callback}) given." unless typeof callback == 'function'
     @container.bind event_type, callback
 
   # Fires the given local event with the given data payload.

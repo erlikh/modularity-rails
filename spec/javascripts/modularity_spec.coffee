@@ -108,7 +108,8 @@ describe 'modularity', ->
       $('#zonk').module(Module)
       expect(alert).toHaveBeenCalled()
 
-  describe 'fire_event', ->
+
+  describe 'event handling', ->
 
     # Variables that should be accessible in both the beforeEach block and the tests.
     module = null
@@ -116,31 +117,73 @@ describe 'modularity', ->
 
     beforeEach ->
       mockContainer = $('#module_container')
-      spyOn mockContainer, 'trigger'
       module = new Module(mockContainer)
 
-    it 'triggers a custom jQuery event with the given event type on the container object', ->
-      module.fire_event 'event type', 'event data'
-      expect(mockContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
+    describe 'fire_event', ->
 
-    describe 'when no payload is given', ->
-      it 'provides an empty object as payload', ->
-        module.fire_event 'event type'
+      beforeEach ->
+        spyOn mockContainer, 'trigger'
+        
+      it 'triggers a custom jQuery event with the given event type on the container object', ->
+        module.fire_event 'event type', 'event data'
+        expect(mockContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
+
+      describe 'when no payload is given', ->
+        it 'provides an empty object as payload', ->
+          module.fire_event 'event type'
+          expect(mockContainer.trigger).toHaveBeenCalled()
+          expect(mockContainer.trigger.argsForCall[0][1]).toEqual({})
+
+        it "doesn't change the original payload variable", ->
+          data = undefined
+          module.fire_event 'event type', data
+          expect(data).toBeUndefined
+
+      it 'provides 0 as payload if 0 is given', ->
+        module.fire_event 'event type', 0
         expect(mockContainer.trigger).toHaveBeenCalled()
-        expect(mockContainer.trigger.argsForCall[0][1]).toEqual({})
+        expect(mockContainer.trigger.argsForCall[0][1]).toEqual(0)
 
-      it "doesn't change the original payload variable", ->
-        data = undefined
-        module.fire_event 'event type', data
-        expect(data).toBeUndefined
+      it 'throws an error if the given event type is not a string', ->
+        spyOn window, 'alert'
+        module.fire_event {}
+        expect(mockContainer.trigger).not.toHaveBeenCalled()
+        expect(window.alert).toHaveBeenCalled()
 
-    it 'provides 0 as payload if 0 is given', ->
-      module.fire_event 'event type', 0
-      expect(mockContainer.trigger).toHaveBeenCalled()
-      expect(mockContainer.trigger.argsForCall[0][1]).toEqual(0)
 
-    it 'throws an error if the given event type is not a string', ->
-      spyOn window, 'alert'
-      module.fire_event {}
-      expect(mockContainer.trigger).not.toHaveBeenCalled()
-      expect(window.alert).toHaveBeenCalled()
+    describe 'bind_event', ->
+
+      beforeEach ->
+        spyOn mockContainer, 'bind'
+        spyOn window, 'alert'
+
+      it 'binds the given custom jQuery event type and the given callback to the container', ->
+        myCallback = ->
+        module.bind_event 'myEventType', myCallback
+        expect(mockContainer.bind).toHaveBeenCalledWith('myEventType', myCallback)
+        expect(window.alert).not.toHaveBeenCalled()
+
+      it "throws an error if no parameters are given", ->
+        module.bind_event()
+        expect(window.alert).toHaveBeenCalled()
+        expect(mockContainer.bind).not.toHaveBeenCalled()
+
+      it "throws an error if the given event type doesn't exist", ->
+        module.bind_event undefined, ->
+        expect(window.alert).toHaveBeenCalled()
+        expect(mockContainer.bind).not.toHaveBeenCalled()
+
+      it 'throws an error if the given event type is not a string', ->
+        module.bind_event {}, ->
+        expect(window.alert).toHaveBeenCalled()
+        expect(mockContainer.bind).not.toHaveBeenCalled()
+
+      it "throws an error if the given callback doesn't exist", ->
+        module.bind_event '123'
+        expect(window.alert).toHaveBeenCalled()
+        expect(mockContainer.bind).not.toHaveBeenCalled()
+
+      it 'throws an error if the given callback is not a function', ->
+        module.bind_event '123', {}
+        expect(window.alert).toHaveBeenCalled()
+        expect(mockContainer.bind).not.toHaveBeenCalled()
