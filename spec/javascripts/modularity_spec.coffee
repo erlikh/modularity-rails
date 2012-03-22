@@ -119,37 +119,6 @@ describe 'modularity', ->
       mockContainer = $('#module_container')
       module = new Module(mockContainer)
 
-    describe 'fire_event', ->
-
-      beforeEach ->
-        spyOn mockContainer, 'trigger'
-        
-      it 'triggers a custom jQuery event with the given event type on the container object', ->
-        module.fire_event 'event type', 'event data'
-        expect(mockContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
-
-      describe 'when no payload is given', ->
-        it 'provides an empty object as payload', ->
-          module.fire_event 'event type'
-          expect(mockContainer.trigger).toHaveBeenCalled()
-          expect(mockContainer.trigger.argsForCall[0][1]).toEqual({})
-
-        it "doesn't change the original payload variable", ->
-          data = undefined
-          module.fire_event 'event type', data
-          expect(data).toBeUndefined
-
-      it 'provides 0 as payload if 0 is given', ->
-        module.fire_event 'event type', 0
-        expect(mockContainer.trigger).toHaveBeenCalled()
-        expect(mockContainer.trigger.argsForCall[0][1]).toEqual(0)
-
-      it 'throws an error if the given event type is not a string', ->
-        spyOn window, 'alert'
-        module.fire_event {}
-        expect(mockContainer.trigger).not.toHaveBeenCalled()
-        expect(window.alert).toHaveBeenCalled()
-
 
     describe 'bind_event', ->
 
@@ -187,3 +156,35 @@ describe 'modularity', ->
         module.bind_event '123', {}
         expect(window.alert).toHaveBeenCalled()
         expect(mockContainer.bind).not.toHaveBeenCalled()
+
+
+    describe 'fire_event', ->
+
+      beforeEach ->
+        spyOn mockContainer, 'trigger'
+
+      it 'triggers a custom jQuery event with the given event type on the container object', ->
+        module.fire_event 'event type', 'event data'
+        expect(mockContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
+
+      describe 'when no payload is given', ->
+        it 'provides an empty object as payload', ->
+          module.fire_event 'event type'
+          expect(mockContainer.trigger).toHaveBeenCalled()
+          expect(mockContainer.trigger.argsForCall[0][1]).toEqual({})
+
+        it "doesn't change the original payload variable", ->
+          data = undefined
+          module.fire_event 'event type', data
+          expect(data).toBeUndefined
+
+      it 'provides 0 as payload if 0 is given', ->
+        module.fire_event 'event type', 0
+        expect(mockContainer.trigger).toHaveBeenCalled()
+        expect(mockContainer.trigger.argsForCall[0][1]).toEqual(0)
+
+      it 'throws an error if the given event type is not a string', ->
+        spyOn window, 'alert'
+        module.fire_event {}
+        expect(mockContainer.trigger).not.toHaveBeenCalled()
+        expect(window.alert).toHaveBeenCalled()
