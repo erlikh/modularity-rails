@@ -25,6 +25,9 @@ describe 'modularity', ->
     beforeEach ->
       spyOn window, 'alert'
 
+    it "is defined on the 'window' object", ->
+      expect(window.Module).not.toBeUndefined()
+
     it 'shows an error if no container is given', ->
       new Module()
       expect(alert).toHaveBeenCalled()
