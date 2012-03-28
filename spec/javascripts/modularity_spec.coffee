@@ -51,12 +51,8 @@ describe 'modularity', ->
 
   describe 'assert', ->
 
-    # Variables that should be accessible in both the beforeEach block and the tests.
-    module = null
-
     beforeEach ->
       spyOn window, 'alert'
-      module = new Module('testing')
 
     it 'shows an alert with the given message if the given condition is false', ->
       Module.assert false, 'Message'
