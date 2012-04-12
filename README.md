@@ -34,6 +34,8 @@ The easiest way is to add it to `application.js`:
 See [http://github.com/kevgo/modularity-coffeescript].
 
 
+# Development
+
 ## Contributing
 
 1. Fork it
@@ -41,3 +43,10 @@ See [http://github.com/kevgo/modularity-coffeescript].
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+## Running the unit tests
+
+```bash
+$ evergreen run
+```

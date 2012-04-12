@@ -1,5 +1,5 @@
-require('/public/javascripts/jquery.min.js')
-require('/public/javascripts/coffee-script.js')
+require('/spec/javascripts/external/jquery.min.js')
+require('/spec/javascripts/external/coffee-script.js')
 
 # Helper method to circumvent that Evergreen doesn't load CoffeeScript files.
 loadCS = (url, callback) ->
