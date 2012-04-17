@@ -15,6 +15,11 @@ describe 'modularity loader', ->
   it 'loading Modularity library ...', ->
     loadCS '/vendor/assets/javascripts/modularity.js.coffee?'+(new Date()).getTime()
 
+    # Test class.
+    class window.TestModule extends Module
+      constructor: (@container) -> 
+        super
+
 
 describe 'modularity', ->
 
@@ -29,23 +34,23 @@ describe 'modularity', ->
       expect(window.Module).not.toBeUndefined()
 
     it 'shows an error if no container is given', ->
-      new Module()
+      new TestModule()
       expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container is not a jQuery object', ->
-      new Module({})
+      new TestModule({})
       expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container is an empty jQuery object', ->
-      new Module($('.zonk'))
+      new TestModule($('.zonk'))
       expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container has more than one elements', ->
-      new Module($('.double'))
+      new TestModule($('.double'))
       expect(alert).toHaveBeenCalled()
 
     it "allows to provide 'testing' in tests", ->
-      new Module('testing')
+      new TestModule('testing')
       expect(alert).not.toHaveBeenCalled()
 
 
@@ -91,7 +96,7 @@ describe 'modularity', ->
       spyOn window, 'alert'
 
     it 'works', ->
-      $('#module_container').module(Module)
+      $('#module_container').module(TestModule)
       expect(alert).not.toHaveBeenCalled()
 
     it 'returns the created instance', ->
@@ -116,7 +121,7 @@ describe 'modularity', ->
 
     beforeEach ->
       mockContainer = $('#module_container')
-      module = new Module(mockContainer)
+      module = new TestModule(mockContainer)
       spyOn window, 'alert'
 
 
