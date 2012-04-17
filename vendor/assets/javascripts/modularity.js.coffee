@@ -7,7 +7,7 @@
 class window.Module
 
   # The container variable is required. Provide 'testing' in tests.
-  constructor: (container) ->
+  constructor: (@container) ->
     return alert 'Error in Module constructor: No container given.' unless @container?
     if container != 'testing'
       return alert 'Error in Module constructor: The given container must be a jQuery object.' unless typeof container.jquery == 'string'

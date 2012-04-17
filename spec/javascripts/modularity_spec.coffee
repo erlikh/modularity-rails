@@ -17,7 +17,7 @@ describe 'modularity loader', ->
 
     # Test class.
     class window.TestModule extends Module
-      constructor: (@container) -> 
+      constructor: (container) -> 
         super
 
 
