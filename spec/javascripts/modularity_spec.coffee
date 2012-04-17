@@ -37,6 +37,10 @@ describe 'modularity', ->
       new TestModule()
       expect(alert).toHaveBeenCalled()
 
+    it 'tries to load the DOM if the given container is a string', ->
+      new TestModule('#module_container')
+      expect(alert).not.toHaveBeenCalled()
+
     it 'shows an error if the container is not a jQuery object', ->
       new TestModule({})
       expect(alert).toHaveBeenCalled()
