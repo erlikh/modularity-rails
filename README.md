@@ -33,6 +33,33 @@ The easiest way is to add it to `application.js`:
 
 See [http://github.com/kevgo/modularity-coffeescript].
 
+## Mixins
+
+Similar to Ruby mixins, mixins in Modularity allow to include orthogonal functional aspects defined in separate objects into a class.
+```coffeescript
+
+myMixin =
+
+  # This will be called when an instance of a class that includes this mixin is created.
+  constructor: ->
+
+  # This method will be available in every class that includes 
+  myMethod: ->
+
+
+class MyModule extends Module
+
+  @mixin myMixin
+
+  constructor: (container) ->
+    
+    # The super constructor will call the mixin constructors here.
+    super
+
+    # ...
+
+```
+
 
 # Development
 
