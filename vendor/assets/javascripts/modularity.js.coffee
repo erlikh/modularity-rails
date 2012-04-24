@@ -17,6 +17,18 @@ class window.Module
       return alert "Error in Module constructor: The given container ('#{container.selector}') is empty." unless container? and container.length > 0
       return alert "Error in Module constructor: The given container ('#{container.selector}') has more than one element." unless container? and container.length == 1
 
+
+    if @mixins?
+      for mixin in @mixins
+        
+        # Attach all properties from mixin to the prototype.
+        for methodName, method of mixin
+          @[methodName] = method
+
+        # Call constructor function from mixin.
+        mixin.constructor.apply @, arguments
+
+
   # Checks whether the given condition is true.
   # Shows an alert with the given message if not.
   @assert: (condition, message) ->
@@ -37,6 +49,13 @@ class window.Module
     Module.assert event_type, 'Module.fire_event: You must provide the event type to fire.'
     return alert("Module.fire_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
     @container.trigger event_type, data ?= {}
+
+
+  # mixin = constructor of Draggable
+  # self = Card
+  @mixin: (mixin) ->
+    @prototype.mixins = [] unless @prototype.mixins?
+    @prototype.mixins.push mixin
 
 
   # GLOBAL EVENTS.

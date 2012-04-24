@@ -17,7 +17,7 @@ describe 'modularity loader', ->
 
     # Test class.
     class window.TestModule extends Module
-      constructor: (container) -> 
+      constructor: (container) ->
         super
 
 
@@ -271,3 +271,37 @@ describe 'modularity', ->
           Module.fire_global_event {}
           expect(mockGlobalContainer.trigger).not.toHaveBeenCalled()
           expect(window.alert).toHaveBeenCalled()
+
+  describe 'mixins', ->
+
+    myMixin = instance = recordedSelf = null
+
+    beforeEach ->
+      myMixin =
+        constructor: -> recordedSelf = @
+        method1: ->
+
+      spyOn(myMixin, 'constructor').andCallThrough()
+
+      class Test extends Module
+        @mixin myMixin
+
+      instance = new Test('testing')
+
+
+    it 'adds all methods from the mixin object to the class prototype', ->
+      expect(typeof instance.method1).toBe("function")
+
+
+    it 'calls the constructor of the mixin', ->
+      expect(myMixin.constructor).toHaveBeenCalled()
+
+
+    it 'calls the constructor with the this pointing to the instance', ->
+      expect(recordedSelf).toBe(instance)
+
+
+
+
+
+
