@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.1.0"
   s.add_development_dependency "capybara-webkit"
   s.add_development_dependency "evergreen"
+  s.add_development_dependency "rb-fsevent" if RUBY_PLATFORM =~ /darwin/i
+  s.add_development_dependency "guard-livereload"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
