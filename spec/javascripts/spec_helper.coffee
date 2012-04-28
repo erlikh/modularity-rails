@@ -14,3 +14,9 @@ window.loadCS = (url, callback) ->
 
 window.load_modularity = ->
   loadCS "/vendor/assets/javascripts/modularity.js.coffee?#{(new Date()).getTime()}"
+
+
+beforeEach ->
+  @addMatchers
+    toHaveLength: (expected) ->
+      this.length == expected
