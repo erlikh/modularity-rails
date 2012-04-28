@@ -1,9 +1,10 @@
 #= require spec_helper
 
-describe 'setting up test environment', ->
+describe 'test environment setup', ->
 
   it 'loading libraries', ->
     load_modularity()
+    loadCS "/vendor/assets/javascripts/mixins/clickable.coffee"
     loadCS "/vendor/assets/javascripts/modules/button.coffee"
 
 
@@ -14,28 +15,31 @@ describe 'Button', ->
 
     it 'fires when clicking on the container directly', ->
       button = new window.Button($('#test #button1'))
-      spyOn(button, 'fire_event')
+      button.bind_event('clicked', (spy = jasmine.createSpy()))
 
       button.container.click()
 
-      expect(button.fire_event).toHaveBeenCalledWith(Button.events.clicked)
+      expect(spy).toHaveBeenCalled()
+      expect(spy.callCount).toEqual(1)
 
 
     it 'fires when clicking embedded elements of the button', ->
       button = new window.Button($('#test #button2'))
-      spyOn(button, 'fire_event')
+      button.bind_event('clicked', (spy = jasmine.createSpy()))
 
       button.container.find('.embedded').click()
 
-      expect(button.fire_event).toHaveBeenCalledWith(Button.events.clicked)
+      expect(spy).toHaveBeenCalled()
+      expect(spy.callCount).toEqual(1)
 
 
   describe 'programmatic clicks', ->
 
     it 'programmatically clicks the button', ->
       button = new window.Button($('#test #button2'))
-      spyOn(button, 'fire_event')
+      spy = jasmine.createSpy()
+      button.bind_event('clicked', spy)
 
       button.click()
 
-      expect(button.fire_event).toHaveBeenCalledWith(Button.events.clicked)
+      expect(spy).toHaveBeenCalled()

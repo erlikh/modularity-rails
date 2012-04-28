@@ -23,7 +23,8 @@ class window.Module
         
         # Attach all properties from mixin to the prototype.
         for methodName, method of mixin
-          @[methodName] = method
+          @[methodName] = =>
+            method.call(@)
 
         # Call constructor function from mixin.
         mixin.constructor.apply @, arguments
