@@ -83,8 +83,18 @@ Modularity comes bundled with a bunch of example modules and mixins that can be 
 The example modules are located in `vendor/assets/javascripts/modules/` and _vendor/assets/javascripts/mixins_
 and must be explicitly required in your Rails files using the `require` commands of the asset pipeline.
 
-* _button.coffee_: A simple button. Fires the `clicked` event when anything inside the container is clicked. Uses the `clickable` mixin.  
-* _counter_button.coffee_: Similar to button, but includes the click count as data payload in the fired event.
+### Modules
+
+* __button.coffee__: A simple button. Fires the `clicked` event when anything inside the container is clicked. Uses the `clickable` mixin.  
+* __counter_button.coffee__: Similar to button, but includes the click count as data payload in the fired event.
+
+* __close_button.coffee__: Searches for an embedded element with the classname "CloseButton", and closes the container when it is clicked.
+
+
+### Mixins
+
+* __clickable.coffee__: Including this mixins adds a 'clickable' aspect to your module, i.e. turns it into a button. Clicking anywhere inside the container makes it fire the 'clicked' event.
+* __closable.coffee__: Including this mixin makes a module closable. This means that when the user clicks on an embedded DOM element with the class 'CloseButton', a 'closing' event will be fired, and the whole module will be removed from the DOM.
 
 
 # Development

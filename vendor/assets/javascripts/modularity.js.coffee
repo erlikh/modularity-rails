@@ -19,15 +19,15 @@ class window.Module
 
 
     if @mixins?
-      for mixin in @mixins
+      for mixin_data in @mixins
         
         # Attach all properties from mixin to the prototype.
-        for methodName, method of mixin
+        for methodName, method of mixin_data.mixin
           unless @[methodName]
-            @[methodName] = => method.call(@)
+            @[methodName] = => method.call(@, mixin_data.params)
 
         # Call constructor function from mixin.
-        mixin.constructor.apply @, arguments
+        mixin_data.mixin.constructor.apply @, arguments
 
 
   # Checks whether the given condition is true.
@@ -54,9 +54,10 @@ class window.Module
 
   # mixin = constructor of Draggable
   # self = Card
-  @mixin: (mixin) ->
-    @prototype.mixins = [] unless @prototype.mixins?
-    @prototype.mixins.push mixin
+  @mixin: (mixin, p...) ->
+    @prototype.mixins or= []
+    console.log p
+    @prototype.mixins.push({mixin: mixin, params: p})
 
 
   # GLOBAL EVENTS.
