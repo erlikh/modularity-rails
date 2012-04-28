@@ -77,18 +77,18 @@ class MyModule extends Module
     # ...
 ```
 
+
 ## Reusable example modules and mixins.
 
 Modularity comes bundled with a bunch of example modules and mixins that can be used in production code.
 The example modules are located in `vendor/assets/javascripts/modules/` and _vendor/assets/javascripts/mixins_
 and must be explicitly required in your Rails files using the `require` commands of the asset pipeline.
 
+
 ### Modules
 
 * __button.coffee__: A simple button. Fires the `clicked` event when anything inside the container is clicked. Uses the `clickable` mixin.  
 * __counter_button.coffee__: Similar to button, but includes the click count as data payload in the fired event.
-
-* __close_button.coffee__: Searches for an embedded element with the classname "CloseButton", and closes the container when it is clicked.
 
 
 ### Mixins
@@ -114,7 +114,10 @@ and must be explicitly required in your Rails files using the `require` commands
 $ evergreen run
 ```
 
+
 ## Automatically refreshing the browser during development.
+
+Modularity-Rails comes with support for [LifeReload](https://github.com/mockko/livereload) via [Guard](https://github.com/guard/guard).
 
 * Install the LiveReload browser extension: [Chrome](https://chrome.google.com/webstore/detail/jnihajbhpnppcggbcgedagnkighmdlei)
 * Run the evergreen server: ```$ evergreen run```
