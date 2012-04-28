@@ -1,20 +1,21 @@
+# This mixin adds a 'clickable' aspect to modules.
+# This means clicking anywhere on the module fires the 'clicked' event.
 window.clickable =
 
   constructor: ->
     @container.click @container_clicked
 
 
-  # The different events that this button can fire.
+  # Events that are fired by this mixin.
   events:
-    clicked: 'clicked'      # Called when this clickable element is clicked.
+    clicked: 'clicked'
 
   
   # Programmatically click this clickable element.
-  click: -> @container_clicked()
+  # For testing and scripting.
+  click: -> @container.click()
 
 
-  # Called when the clickable element got clicked. 
-  container_clicked: ->
-    console.log 'clicked'
-    @fire_event clickable.events.clicked
+  # Event handler for clicks on this clickable element. 
+  container_clicked: -> @fire_event clickable.events.clicked
 

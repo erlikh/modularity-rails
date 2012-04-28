@@ -51,8 +51,6 @@ Everything the module does must happen inside this container.
 The module is responsible for managing the inner DOM-structure of the container.
 
 
-
-
 ## Mixins
 
 Similar to Ruby mixins, mixins in Modularity allow to include orthogonal functional aspects defined in separate objects into a class.
@@ -78,6 +76,15 @@ class MyModule extends Module
 
     # ...
 ```
+
+## Reusable example modules and mixins.
+
+Modularity comes bundled with a bunch of example modules and mixins that can be used in production code.
+The example modules are located in `vendor/assets/javascripts/modules/` and _vendor/assets/javascripts/mixins_
+and must be explicitly required in your Rails files using the `require` commands of the asset pipeline.
+
+* _button.coffee_: A simple button. Fires the `clicked` event when anything inside the container is clicked. Uses the `clickable` mixin.  
+* _counter_button.coffee_: Similar to button, but includes the click count as data payload in the fired event.
 
 
 # Development
