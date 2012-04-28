@@ -1,4 +1,5 @@
 require('/spec/javascripts/external/jquery.min.js')
+require('/spec/javascripts/external/jasmine-jquery.js')
 require('/spec/javascripts/external/coffee-script.js')
 
 # Helper method to circumvent that Evergreen doesn't load CoffeeScript files.
