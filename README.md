@@ -99,10 +99,10 @@ $ evergreen run
 
 ## Automatically refreshing the browser during development.
 
-* install the LiveReload browser extension: [Chrome](https://chrome.google.com/webstore/detail/jnihajbhpnppcggbcgedagnkighmdlei)
-* run the evergreen server: ```$ evergreen run```
-* run the guard server ``` $ bundle exec guard ```
-* start the LiveReload plugin in Chrome (button in address bar)
-* navigate to the test page that you want to observer
-* change and save code and see the browser reload.
+* Install the LiveReload browser extension: [Chrome](https://chrome.google.com/webstore/detail/jnihajbhpnppcggbcgedagnkighmdlei)
+* Run the evergreen server: ```$ evergreen run```
+* Run the guard server: ``` $ bundle exec guard ```
+* Start the LiveReload plugin in Chrome (button in address bar).
+* Navigate to the test page that you want to observe.
+* Change and save code and see the browser reload.
 
