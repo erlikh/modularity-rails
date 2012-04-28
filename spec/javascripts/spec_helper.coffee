@@ -10,3 +10,6 @@ window.loadCS = (url, callback) ->
       eval CoffeeScript.compile data
       callback() if callback
 
+
+window.load_modularity = ->
+  loadCS "/vendor/assets/javascripts/modularity.js.coffee?#{(new Date()).getTime()}"

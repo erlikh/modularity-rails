@@ -1,9 +1,12 @@
-# Helper method to load the modularity library before the tests.
-describe 'modularity loader', ->
-  it 'loading Modularity library ...', ->
-    loadCS '/vendor/assets/javascripts/modularity.js.coffee?'+(new Date()).getTime()
+#= require spec_helper
 
-    # Test class.
+describe 'setting up test environment', ->
+
+  it 'loading libraries', ->
+    load_modularity()
+
+  it 'defining test classes', ->
+
     class window.TestModule extends Module
       constructor: (container) ->
         super
