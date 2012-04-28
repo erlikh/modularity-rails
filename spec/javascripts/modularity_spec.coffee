@@ -29,7 +29,7 @@ describe 'modularity', ->
       expect(alert).toHaveBeenCalled()
 
     it 'tries to load the DOM if the given container is a string', ->
-      new TestModule('#module_container')
+      new TestModule('#test #module_container')
       expect(alert).not.toHaveBeenCalled()
 
     it 'shows an error if the container is not a jQuery object', ->
@@ -37,11 +37,11 @@ describe 'modularity', ->
       expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container is an empty jQuery object', ->
-      new TestModule($('.zonk'))
+      new TestModule($('#test .zonk'))
       expect(alert).toHaveBeenCalled()
 
     it 'shows an error if the container has more than one elements', ->
-      new TestModule($('.double'))
+      new TestModule($('#test .double'))
       expect(alert).toHaveBeenCalled()
 
     it "allows to provide 'testing' in tests", ->
@@ -91,11 +91,11 @@ describe 'modularity', ->
       spyOn window, 'alert'
 
     it 'works', ->
-      $('#module_container').module(TestModule)
+      $('#test #module_container').module(TestModule)
       expect(alert).not.toHaveBeenCalled()
 
     it 'returns the created instance', ->
-      result = $('#module_container').module(Module)
+      result = $('#test #module_container').module(Module)
       expect(result).toBeDefined()
       expect(typeof result).toEqual('object')
 
@@ -104,7 +104,7 @@ describe 'modularity', ->
       expect(alert).toHaveBeenCalled()
 
     it 'returns an error if the jQuery object is empty.', ->
-      $('#zonk').module(Module)
+      $('#test #zonk').module(Module)
       expect(alert).toHaveBeenCalled()
 
 
@@ -115,7 +115,7 @@ describe 'modularity', ->
     mockContainer = null
 
     beforeEach ->
-      mockContainer = $('#module_container')
+      mockContainer = $('#test #module_container')
       module = new TestModule(mockContainer)
       spyOn window, 'alert'
 
@@ -194,7 +194,7 @@ describe 'modularity', ->
       mockGlobalContainer = null
 
       beforeEach ->
-        mockGlobalContainer = $('#module_container')
+        mockGlobalContainer = $('#test #module_container')
         spyOn(Module, 'global_event_container').andReturn(mockGlobalContainer)
 
       describe 'bind_global_event', ->
