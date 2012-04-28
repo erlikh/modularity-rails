@@ -3,8 +3,12 @@
 Makes the [Modularity CoffeeScript](http://github.com/kevgo/modularity-coffeescript) library available to 
 Rails 3.1 applications. 
 
+Modularity is a pattern and framework for lightweight object-oriented JavaScript 
+that allows to compose functionally rich web pages in a clean and testable way 
+out of well structured and reusable components.
 
-## Installation
+
+# Installation
 
 Add this line to your application's Gemfile:
                          
@@ -19,25 +23,41 @@ $ bundle
 ```
 
 Finally, you have to load the modularity file into your application's javascript.
-The easiest way is to add it to `application.js`:
+The easiest way is to add it to `application.coffee`:
 
-```javascript
-/**                   
- *= require jquery
- *= require modularity
- */
+```coffeescript
+ # require jquery
+ # require modularity
 ```
 
 
-## Usage
+# Usage
 
-See [http://github.com/kevgo/modularity-coffeescript].
+Modularity is a lightweight framework for building powerful AJAX applications.
+Modularity avoids magic and heavyness. It focusses on providing a pragmatic and interoperable foundation 
+for clean hand-written code bases. 
+Modularity provides practices to create code bases of incredible complexity that are still 
+nicely manageable and perform very well. 
+
+
+# Modules
+
+Modules are native CoffeeScript classes that are specialized for doing what most JavaScript running in browsers does: 
+managing a UI consisting of DOM elements, reacting to events that happen within that section, 
+representing application logic specific to that section, and providing high-level APIs for others to interact with the section.
+
+Each module has a container. The container is the outermost DOM element of a section. 
+Everything the module does must happen inside this container. 
+The module is responsible for managing the inner DOM-structure of the container.
+
+
+
 
 ## Mixins
 
 Similar to Ruby mixins, mixins in Modularity allow to include orthogonal functional aspects defined in separate objects into a class.
-```coffeescript
 
+```coffeescript
 myMixin =
 
   # This will be called when an instance of a class that includes this mixin is created.
@@ -57,7 +77,6 @@ class MyModule extends Module
     super
 
     # ...
-
 ```
 
 
