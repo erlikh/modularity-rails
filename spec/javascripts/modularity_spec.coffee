@@ -1,15 +1,3 @@
-require('/spec/javascripts/external/jquery.min.js')
-require('/spec/javascripts/external/coffee-script.js')
-
-# Helper method to circumvent that Evergreen doesn't load CoffeeScript files.
-loadCS = (url, callback) ->
-  $.ajax
-    url: url
-    async: false
-    success: (data) ->
-      eval CoffeeScript.compile data
-      callback() if callback
-
 # Helper method to load the modularity library before the tests.
 describe 'modularity loader', ->
   it 'loading Modularity library ...', ->
