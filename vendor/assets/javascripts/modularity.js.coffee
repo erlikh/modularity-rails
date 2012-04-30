@@ -56,7 +56,6 @@ class window.Module
   # self = Card
   @mixin: (mixin, p...) ->
     @prototype.mixins or= []
-    console.log p
     @prototype.mixins.push({mixin: mixin, params: p})
 
 
