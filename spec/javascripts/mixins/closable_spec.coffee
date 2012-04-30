@@ -13,13 +13,21 @@ describe 'test environment setup', ->
 describe 'Closable', ->
   template 'closable.html'
 
-  beforeEach ->
-    
-  describe 'embedded close button', ->
+  describe 'constructor', ->
+    it 'shows an alert if there is no close button', ->
+      spy = spyOn window, 'alert'
+      new ClosableModuleStandard('#test #closable3')
+      expect(spy).toHaveBeenCalled()
+      expect(spy.argsForCall[0][0]).toMatch(/close button not found/i)
+
+    it 'shows no alert if there is a close button', ->
+      spy = spyOn window, 'alert'
+      new ClosableModuleStandard('#test #closable1')
+      expect(spy).not.toHaveBeenCalled()
+
     it 'finds the close button div automatically', ->
       new ClosableModuleStandard('#test #closable1')
       $('#test #closable1 .CloseButton').click()
-
       expect($('#test #closable1').length).toEqual(0)
 
 

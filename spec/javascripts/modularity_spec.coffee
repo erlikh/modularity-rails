@@ -265,34 +265,30 @@ describe 'modularity', ->
 
   describe 'mixins', ->
 
-    myMixin = instance = recordedSelf = null
+    myMixin = instance = recordedSelf = Test = null
+    myMixin =
+      constructor: -> recordedSelf = @
+      method1: ->
 
     beforeEach ->
-      myMixin =
-        constructor: -> recordedSelf = @
-        method1: ->
-
-      spyOn(myMixin, 'constructor').andCallThrough()
-
       class Test extends Module
         @mixin myMixin
 
-      instance = new Test('testing')
 
 
     it 'adds all methods from the mixin object to the class prototype', ->
+      instance = new Test('testing')
       expect(typeof instance.method1).toBe("function")
 
 
     it 'calls the constructor of the mixin', ->
+      spyOn(myMixin, 'constructor')
+      instance = new Test('testing')
       expect(myMixin.constructor).toHaveBeenCalled()
 
 
     it 'calls the constructor with the this pointing to the instance', ->
+      instance = new Test('testing')
       expect(recordedSelf).toBe(instance)
 
-
-
-
-
-
+    xit 'provides arguments to the @mixin method to the mixin constructor'

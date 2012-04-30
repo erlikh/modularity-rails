@@ -1,8 +1,9 @@
 window.closable =
 
-  constructor: (container, close_button = undefined) ->
-    close_button ||= @container.find('.CloseButton')
-    # TODO: add alert if no close button found.
+  constructor: (container) ->
+    close_button = @container.find('.CloseButton')
+    unless close_button?.length > 0
+      window.alert 'Error: Close button not found'
     close_button.click @close_button_clicked
 
 
