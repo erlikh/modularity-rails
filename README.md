@@ -40,7 +40,7 @@ Modularity provides practices to create code bases of incredible complexity that
 nicely manageable and perform very well. 
 
 
-# Modules
+## Modules
 
 Modules are native CoffeeScript classes that are specialized for doing what most JavaScript running in browsers does: 
 managing a UI consisting of DOM elements, reacting to events that happen within that section, 
@@ -77,24 +77,39 @@ class MyModule extends Module
     # ...
 ```
 
+## Hooks
 
-## Reusable example modules and mixins.
+Hooks are a more direct and easier way to interact with mixins. They are methods with predefined names that mixing modules can implement to hook into events of their mixins
+without the need to wire up event handlers, and with the ability to interact with the workflow of the mixins.
+
+
+# Reusable example modules and mixins.
 
 Modularity comes bundled with a bunch of example modules and mixins that can be used in production code.
 The example modules are located in `vendor/assets/javascripts/modules/` and _vendor/assets/javascripts/mixins_
 and must be explicitly required in your Rails files using the `require` commands of the asset pipeline.
 
 
-### Modules
+## Modules
 
 * __button.coffee__: A simple button. Fires the `clicked` event when anything inside the container is clicked. Uses the `clickable` mixin.  
 * __counter_button.coffee__: Similar to button, but includes the click count as data payload in the fired event.
 
 
-### Mixins
+## Mixins
 
-* __clickable.coffee__: Including this mixins adds a 'clickable' aspect to your module, i.e. turns it into a button. Clicking anywhere inside the container makes it fire the 'clicked' event.
-* __closable.coffee__: Including this mixin makes a module closable. This means that when the user clicks on an embedded DOM element with the class 'CloseButton', a 'closing' event will be fired, and the whole module will be removed from the DOM.
+###clickable
+Including this mixins adds a 'clickable' aspect to your module, i.e. turns it into a button. Clicking anywhere inside the container makes it fire the 'clicked' event.
+
+###closable
+Including this mixin makes a module closable. The mixin searches for an embedded DOM element with the class 'CloseButton'. When it is clicked, the following things happen:
+
+* The _closable_closing_ hook of the closable class is called.
+  This hook could be used to display confirmation dialogs (and abort the close process) or to fire custom events that depend on the DOM still being present. 
+  If this method returns a falsy value, the closing process is aborted.
+* The closable module fires a local 'closing' event (with the DOM still present).
+* The whole module including its container is removed from the DOM.
+* The _closable_closed_ hook of the closable class is called.
 
 
 # Development
