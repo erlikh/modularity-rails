@@ -18,6 +18,7 @@ class window.Module
       return alert "Error in Module constructor: The given container ('#{container.selector}') has more than one element." unless container? and container.length == 1
 
 
+    # Attach mixins.
     if @mixins?
       for mixin_data in @mixins
         
