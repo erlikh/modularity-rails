@@ -269,6 +269,7 @@ describe 'modularity', ->
     myMixin =
       constructor: -> recordedSelf = @
       method1: ->
+      method2: ->
 
     beforeEach ->
       class Test extends Module
@@ -279,6 +280,21 @@ describe 'modularity', ->
     it 'adds all methods from the mixin object to the class prototype', ->
       instance = new Test('testing')
       expect(typeof instance.method1).toBe("function")
+
+
+    it 'calls the proper mixin method when calling from the implementing module', ->
+      spyOn(myMixin, 'method1')
+      spyOn(myMixin, 'method2')
+      instance = new Test('testing')
+      instance.method1()
+      expect(myMixin.method1).toHaveBeenCalled()
+      expect(myMixin.method2).not.toHaveBeenCalled()
+
+    it 'calls the mixin with the proper paramaters', ->
+      spyOn(myMixin, 'method1')
+      instance = new Test('testing')
+      instance.method1("arg1", "arg2")
+      expect(myMixin.method1).toHaveBeenCalledWith("arg1", "arg2")
 
 
     it 'calls the constructor of the mixin', ->
