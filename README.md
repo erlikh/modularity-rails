@@ -8,6 +8,11 @@ that allows to compose functionally rich web pages in a clean and testable way
 out of well structured and reusable components.
 
 
+## Authors
+* [Kevin Goslar](https://github.com/kevgo) (kevin.goslar@gmail.com)
+* [Alex David](https://github.com/alexdavid)
+
+
 # Installation
 
 Add this line to your application's Gemfile:
