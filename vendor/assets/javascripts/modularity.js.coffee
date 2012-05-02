@@ -24,8 +24,8 @@ class window.Module
         
         # Attach all properties from mixin to the prototype.
         for methodName, method of mixin_data.mixin
-          unless @[methodName]
-            @[methodName] = => method.call(@, mixin_data.params)
+          do (methodName, method) => unless @[methodName]
+            @[methodName] = => method.apply(@, arguments)
 
         # Call constructor function from mixin.
         mixin_data.mixin.constructor.apply @, arguments
