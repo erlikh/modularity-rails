@@ -117,6 +117,23 @@ Including this mixin makes a module closable. The mixin searches for an embedded
 * The _closable_closed_ hook of the closable class is called.
 
 
+## Tools
+
+###loader
+Module.loader is a cached ajax loader. The first get request makes an ajax request and calls the callback with returned data. Any subsequent requests to the same URL will use the cache.
+
+```coffeescript
+# Makes ajax request to ajax/test.html:
+Module.loader.get 'ajax/test.html', (data) ->
+  $('.result').html data
+
+...
+
+# Uses cached value:
+Module.loader.get 'ajax/test.html', (data) ->
+  $('.result').html data
+```
+
 # Development
 
 ## Contributing
