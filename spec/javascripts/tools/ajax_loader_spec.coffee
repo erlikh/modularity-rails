@@ -1,8 +1,5 @@
 #= require spec_helper
 
-
-
-
 describe 'test environment setup', ->
 
   it 'loading libraries', ->

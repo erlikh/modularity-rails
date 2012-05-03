@@ -119,19 +119,16 @@ Including this mixin makes a module closable. The mixin searches for an embedded
 
 ## Tools
 
-###loader
-Module.loader is a cached ajax loader. The first get request makes an ajax request and calls the callback with returned data. Any subsequent requests to the same URL will use the cache.
+### Loader
+A generic cached loader for parallel and repeated GET requests.
+Prevents duplicate requests, caches the responses.
+
+The first request triggers the ajax request. Subsequent requests while the resquest is running are accumulated without causing new requests.
+Once the response arrives, all currently requesting clients are answered. Subsequent requests are answered immediately using the cached data.  
 
 ```coffeescript
-# Makes ajax request to ajax/test.html:
-Module.loader.get 'ajax/test.html', (data) ->
-  $('.result').html data
-
-...
-
-# Uses cached value:
-Module.loader.get 'ajax/test.html', (data) ->
-  $('.result').html data
+Module.loader.get '/test.json', (data) ->
+  # Use data here.
 ```
 
 # Development
