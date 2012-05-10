@@ -1,30 +1,31 @@
-#= require spec_helper
-
 describe 'test environment setup', ->
 
   it 'loading libraries', ->
     load_modularity()
+    loadCS "/vendor/assets/javascripts/tools/cache.coffee"
     loadCS "/vendor/assets/javascripts/tools/ajax_loader.coffee"
 
 
 describe 'ajax_loader', ->
   
+  ajax_loader = null
+  beforeEach ->
+    ajax_loader = new modularity.AjaxLoader()
+
   describe 'get', ->
+
+    url = "/users/4"
     spy = null
     beforeEach ->
       spyOn(jQuery, 'get')
       spy = jasmine.createSpy()
-      modularity.loader.cache = {}
-
-    url = "user/4"
 
     describe 'the data has already been loaded', ->
-      it 'calls the callback with the cached data', ->
-        spy = jasmine.createSpy()
-        url = "/users/4"
 
-        modularity.loader.cache[url] = "my data"
-        modularity.loader.get(url, spy)
+      it 'calls the callback with the cached data', ->
+        ajax_loader.cache.add url, "my data"
+
+        ajax_loader.get(url, spy)
 
         expect(spy).toHaveBeenCalled()
         expect(spy.argsForCall[0][0]).toEqual("my data")
@@ -33,13 +34,12 @@ describe 'ajax_loader', ->
     describe 'the request is already in progress', ->
 
       beforeEach ->
-        modularity.loader.cache[url] = []
-        modularity.loader.get(url, spy)
+        ajax_loader.cache.cache[url] = [spy]
 
 
       it 'adds the callback to the callback array', ->
-        expect(modularity.loader.cache[url].length).toEqual(1)
-        expect(modularity.loader.cache[url][0]).toEqual(spy)
+        expect(ajax_loader.cache.get(url).length).toEqual(1)
+        expect(ajax_loader.cache.get(url)[0]).toEqual(spy)
 
 
       it 'returns without calling the callback', ->
@@ -54,15 +54,15 @@ describe 'ajax_loader', ->
     describe 'first time request', ->
       
       beforeEach ->
-        modularity.loader.get(url, spy)
+        ajax_loader.get(url, spy)
 
       it 'makes an ajax request', ->
         expect(jQuery.get).toHaveBeenCalled()
 
 
       it 'saves the callback for later', ->
-        expect(modularity.loader.cache[url].length).toEqual(1)
-        expect(modularity.loader.cache[url][0]).toEqual(spy)
+        expect(ajax_loader.cache.get(url).length).toEqual(1)
+        expect(ajax_loader.cache.get(url)[0]).toEqual(spy)
 
       it 'returns without calling the callback', ->
         expect(spy).not.toHaveBeenCalled()
@@ -74,7 +74,7 @@ describe 'ajax_loader', ->
       beforeEach ->
         jquery_callback = null
         jQuery.get = (url, callback) -> jquery_callback = callback
-        modularity.loader.get url, spy
+        ajax_loader.get url, spy
         jquery_callback('result')
 
       it 'calls the given callbacks', ->
@@ -82,4 +82,4 @@ describe 'ajax_loader', ->
         expect(spy.argsForCall[0][0]).toEqual('result')
 
       it 'replaces the cache callbacks with returned data', ->
-        expect(modularity.loader.cache[url]).toEqual('result')
+        expect(ajax_loader.cache.get(url)).toEqual('result')
