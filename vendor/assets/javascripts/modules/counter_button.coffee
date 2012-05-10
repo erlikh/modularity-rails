@@ -1,7 +1,7 @@
 # A button that counts how often it is clicked.
 # This is implemented as a subclass of Button, 
 # to take advantage of the already existing functionality there.
-class window.CounterButton extends Button
+class window.modularity.CounterButton extends modularity.Button
 
   constructor: ->
     super

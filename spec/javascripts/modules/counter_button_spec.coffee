@@ -17,7 +17,7 @@ describe 'CounterButton', ->
     describe 'manual clicks', ->
 
       it 'fires when clicking on the container directly', ->
-        button = new window.CounterButton('#test #button1')
+        button = new modularity.CounterButton('#test #button1')
         button.bind_event('clicked', (spy = jasmine.createSpy()))
 
         button.container.click()
@@ -27,7 +27,7 @@ describe 'CounterButton', ->
 
 
       it 'fires when clicking embedded elements of the button', ->
-        button = new window.CounterButton('#test #button2')
+        button = new modularity.CounterButton('#test #button2')
         button.bind_event('clicked', (spy = jasmine.createSpy()))
 
         button.container.find('.embedded').click()
@@ -38,7 +38,7 @@ describe 'CounterButton', ->
     describe 'programmatic clicks', ->
 
       it 'programmatically clicks the button', ->
-        button = new window.CounterButton('#test #button2')
+        button = new modularity.CounterButton('#test #button2')
         spy = jasmine.createSpy()
         button.bind_event('clicked', spy)
 
@@ -49,7 +49,7 @@ describe 'CounterButton', ->
   describe 'CounterButton specific functionality', ->
 
     it 'provides the click counter as the event payload', ->
-      button = new window.CounterButton('#test #button1')
+      button = new modularity.CounterButton('#test #button1')
       button.bind_event('clicked', (spy = jasmine.createSpy()))
 
       button.container.click()

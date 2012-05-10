@@ -1,6 +1,6 @@
 # This mixin adds a 'clickable' aspect to modules.
 # This means clicking anywhere on the module fires the 'clicked' event.
-window.clickable =
+window.modularity.clickable =
 
   constructor: ->
     @container.click @container_clicked
@@ -17,5 +17,5 @@ window.clickable =
 
 
   # Event handler for clicks on this clickable element. 
-  container_clicked: -> @fire_event clickable.events.clicked
+  container_clicked: -> @fire_event modularity.clickable.events.clicked
 

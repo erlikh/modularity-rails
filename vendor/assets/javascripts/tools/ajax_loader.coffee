@@ -5,19 +5,19 @@
 #
 # Warning: Caches the responses, so once a request is cached,
 #          any new content on the same URL will not be visible!
-Module.loader =
+modularity.loader =
 
   cache: {}
 
   get: (url, callback) ->
-    cache = Module.loader.cache[url]
+    cache = modularity.loader.cache[url]
 
     # New request --> start GET call, store callback.
     unless cache?
-      Module.loader.cache[url] = [callback]
+      modularity.loader.cache[url] = [callback]
       return jQuery.get url, (data) ->
-        cb(data) for cb in Module.loader.cache[url]
-        Module.loader.cache[url] = data
+        cb(data) for cb in modularity.loader.cache[url]
+        modularity.loader.cache[url] = data
 
     # Request while the GET call is still pending --> 
     # add the given callback to the list of waiting callbacks.

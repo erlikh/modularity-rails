@@ -7,8 +7,8 @@ describe 'test environment setup', ->
     loadCS "/vendor/assets/javascripts/mixins/closable.coffee"
 
     # A standard closable module.
-    class window.ClosableModule1 extends Module
-      @mixin closable
+    class window.ClosableModule1 extends modularity.Module
+      @mixin modularity.closable
 
 
 describe 'Closable', ->
@@ -37,8 +37,8 @@ describe 'Closable', ->
     it "calls the closable_closing hook on the object if it exists", ->
 
       # A closable module with the 'closing' hook.
-      class ClosableModule extends Module
-        @mixin closable
+      class ClosableModule extends modularity.Module
+        @mixin modularity.closable
 
         constructor: ->
           super
@@ -55,8 +55,8 @@ describe 'Closable', ->
     it "calls the closable_closed hook on the object if it exists", ->
 
       # A closable module with the 'closed' hook.
-      class ClosableModule extends Module
-        @mixin closable
+      class ClosableModule extends modularity.Module
+        @mixin modularity.closable
 
         constructor: ->
           super
@@ -72,8 +72,8 @@ describe 'Closable', ->
 
     it "aborts the close operation if the closable_closing method returns false", ->
 
-      class ClosableModuleWithHookThatReturnsFalse extends Module
-        @mixin closable
+      class ClosableModuleWithHookThatReturnsFalse extends modularity.Module
+        @mixin modularity.closable
         closable_closing: -> false
 
       module = new ClosableModuleWithHookThatReturnsFalse('#test #closable1')

@@ -11,7 +11,7 @@ describe 'Cache', ->
   
   cache = null
   beforeEach ->
-    cache = new window.Cache()
+    cache = new modularity.Cache()
 
 
   describe 'constructor', ->

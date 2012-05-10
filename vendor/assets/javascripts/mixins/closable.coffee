@@ -1,4 +1,4 @@
-window.closable =
+window.modularity.closable =
 
   constructor: (container) ->
     close_button = @container.find('.CloseButton')

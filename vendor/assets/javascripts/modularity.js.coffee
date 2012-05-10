@@ -4,7 +4,10 @@
 #
 # Please see https://github.com/kevgo/modularity for more information.
 
-class window.Module
+
+window.modularity or= {}
+
+class window.modularity.Module
 
   # The container variable is required. Provide 'testing' in tests.
   constructor: (container) ->

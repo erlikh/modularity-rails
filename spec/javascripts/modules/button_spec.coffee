@@ -14,7 +14,7 @@ describe 'Button', ->
   describe 'manual clicks', ->
 
     it 'fires when clicking on the container directly', ->
-      button = new window.Button($('#test #button1'))
+      button = new modularity.Button($('#test #button1'))
       button.bind_event('clicked', (spy = jasmine.createSpy()))
 
       button.container.click()
@@ -24,7 +24,7 @@ describe 'Button', ->
 
 
     it 'fires when clicking embedded elements of the button', ->
-      button = new window.Button($('#test #button2'))
+      button = new modularity.Button($('#test #button2'))
       button.bind_event('clicked', (spy = jasmine.createSpy()))
 
       button.container.find('.embedded').click()
@@ -36,7 +36,7 @@ describe 'Button', ->
   describe 'programmatic clicks', ->
 
     it 'programmatically clicks the button', ->
-      button = new window.Button($('#test #button2'))
+      button = new modularity.Button($('#test #button2'))
       spy = jasmine.createSpy()
       button.bind_event('clicked', spy)
 

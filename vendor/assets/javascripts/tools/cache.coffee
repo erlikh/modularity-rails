@@ -1,6 +1,6 @@
 # A generic cache.
 # Stores key-value pairs.
-class window.Cache
+class window.modularity.Cache
 
   constructor: ->
     @cache = {}

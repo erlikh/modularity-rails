@@ -7,7 +7,7 @@ describe 'setting up test environment', ->
 
   it 'defining test classes', ->
 
-    class window.TestModule extends Module
+    class window.TestModule extends modularity.Module
       constructor: (container) ->
         super
 
@@ -22,7 +22,7 @@ describe 'modularity', ->
       spyOn window, 'alert'
 
     it "is defined on the 'window' object", ->
-      expect(window.Module).not.toBeUndefined()
+      expect(modularity.Module).not.toBeUndefined()
 
     it 'shows an error if no container is given', ->
       new TestModule()
@@ -55,34 +55,34 @@ describe 'modularity', ->
       spyOn window, 'alert'
 
     it 'shows an alert with the given message if the given condition is false', ->
-      Module.assert false, 'Message'
+      modularity.Module.assert false, 'Message'
       expect(alert).toHaveBeenCalledWith("Message")
 
     it 'fails when the condition is null', ->
-      Module.assert null, 'Message'
+      modularity.Module.assert null, 'Message'
       expect(alert).toHaveBeenCalledWith("Message")
 
     it 'fails when the condition is undefined', ->
-      Module.assert undefined, 'Message'
+      modularity.Module.assert undefined, 'Message'
       expect(alert).toHaveBeenCalledWith("Message")
 
     it 'fails when the condition is an empty array', ->
-      Module.assert [], 'Message'
+      modularity.Module.assert [], 'Message'
       expect(alert).toHaveBeenCalledWith("Message")
 
     it 'fails when the condition is an empty string', ->
-      Module.assert '', 'Message'
+      modularity.Module.assert '', 'Message'
       expect(alert).toHaveBeenCalledWith("Message")
 
     it 'passes when the condition is a string', ->
-      Module.assert '123', 'Message'
+      modularity.Module.assert '123', 'Message'
       expect(alert).not.toHaveBeenCalled()
 
     it "returns false if the condition doesn't pass", ->
-      expect(Module.assert(false)).toBeFalsy()
+      expect(modularity.Module.assert(false)).toBeFalsy()
 
     it "returns true if the condition passes", ->
-      expect(Module.assert('123')).toBeTruthy()
+      expect(modularity.Module.assert('123')).toBeTruthy()
 
 
   describe 'jQuery Integration', ->
@@ -95,7 +95,7 @@ describe 'modularity', ->
       expect(alert).not.toHaveBeenCalled()
 
     it 'returns the created instance', ->
-      result = $('#test #module_container').module(Module)
+      result = $('#test #module_container').module(modularity.Module)
       expect(result).toBeDefined()
       expect(typeof result).toEqual('object')
 
@@ -104,7 +104,7 @@ describe 'modularity', ->
       expect(alert).toHaveBeenCalled()
 
     it 'returns an error if the jQuery object is empty.', ->
-      $('#test #zonk').module(Module)
+      $('#test #zonk').module(modularity.Module)
       expect(alert).toHaveBeenCalled()
 
 
@@ -195,7 +195,7 @@ describe 'modularity', ->
 
       beforeEach ->
         mockGlobalContainer = $('#test #module_container')
-        spyOn(Module, 'global_event_container').andReturn(mockGlobalContainer)
+        spyOn(modularity.Module, 'global_event_container').andReturn(mockGlobalContainer)
 
       describe 'bind_global_event', ->
 
@@ -204,31 +204,31 @@ describe 'modularity', ->
 
         it 'binds the given event type and callback method to the global event container', ->
           callback = ->
-          Module.bind_global_event '123', callback
+          modularity.Module.bind_global_event '123', callback
           expect(mockGlobalContainer.bind).toHaveBeenCalledWith('123', callback)
 
         it "throws an error if no parameters are given", ->
-          Module.bind_global_event()
+          modularity.Module.bind_global_event()
           expect(window.alert).toHaveBeenCalled()
           expect(mockGlobalContainer.bind).not.toHaveBeenCalled()
 
         it "throws an error if the given event type doesn't exist", ->
-          Module.bind_global_event undefined, ->
+          modularity.Module.bind_global_event undefined, ->
           expect(window.alert).toHaveBeenCalled()
           expect(mockGlobalContainer.bind).not.toHaveBeenCalled()
 
         it 'throws an error if the given event type is not a string', ->
-          Module.bind_global_event {}, ->
+          modularity.Module.bind_global_event {}, ->
           expect(window.alert).toHaveBeenCalled()
           expect(mockGlobalContainer.bind).not.toHaveBeenCalled()
 
         it "throws an error if the given callback doesn't exist", ->
-          Module.bind_global_event '123'
+          modularity.Module.bind_global_event '123'
           expect(window.alert).toHaveBeenCalled()
           expect(mockGlobalContainer.bind).not.toHaveBeenCalled()
 
         it 'throws an error if the given callback is not a function', ->
-          Module.bind_global_event '123', {}
+          modularity.Module.bind_global_event '123', {}
           expect(window.alert).toHaveBeenCalled()
           expect(mockGlobalContainer.bind).not.toHaveBeenCalled()
 
@@ -239,29 +239,30 @@ describe 'modularity', ->
           spyOn mockGlobalContainer, 'trigger'
 
         it 'triggers a custom jQuery event with the given event type on the global event container object', ->
-          Module.fire_global_event 'event type', 'event data'
+          modularity.Module.fire_global_event 'event type', 'event data'
           expect(mockGlobalContainer.trigger).toHaveBeenCalledWith('event type', 'event data')
 
         describe 'when no payload is given', ->
           it 'provides an empty object as payload', ->
-            Module.fire_global_event 'event type'
+            modularity.Module.fire_global_event 'event type'
             expect(mockGlobalContainer.trigger).toHaveBeenCalled()
             expect(mockGlobalContainer.trigger.argsForCall[0][1]).toEqual({})
 
           it "doesn't change the original payload variable", ->
             data = undefined
-            Module.fire_global_event 'event type', data
+            modularity.Module.fire_global_event 'event type', data
             expect(data).toBeUndefined
 
         it 'provides 0 as payload if 0 is given', ->
-          Module.fire_global_event 'event type', 0
+          modularity.Module.fire_global_event 'event type', 0
           expect(mockGlobalContainer.trigger).toHaveBeenCalled()
           expect(mockGlobalContainer.trigger.argsForCall[0][1]).toEqual(0)
 
         it 'throws an error if the given event type is not a string', ->
-          Module.fire_global_event {}
+          modularity.Module.fire_global_event {}
           expect(mockGlobalContainer.trigger).not.toHaveBeenCalled()
           expect(window.alert).toHaveBeenCalled()
+
 
   describe 'mixins', ->
 
@@ -272,7 +273,7 @@ describe 'modularity', ->
       method2: ->
 
     beforeEach ->
-      class Test extends Module
+      class Test extends modularity.Module
         @mixin myMixin
 
 
