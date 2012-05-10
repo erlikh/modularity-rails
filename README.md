@@ -8,6 +8,11 @@ that allows to compose functionally rich web pages in a clean and testable way
 out of well structured and reusable components.
 
 
+## Authors
+* [Kevin Goslar](https://github.com/kevgo) (kevin.goslar@gmail.com)
+* [Alex David](https://github.com/alexdavid)
+
+
 # Installation
 
 Add this line to your application's Gemfile:
@@ -111,6 +116,20 @@ Including this mixin makes a module closable. The mixin searches for an embedded
 * The whole module including its container is removed from the DOM.
 * The _closable_closed_ hook of the closable class is called.
 
+
+## Tools
+
+### Loader
+A generic cached loader for parallel and repeated GET requests.
+Prevents duplicate requests, caches the responses.
+
+The first request triggers the ajax request. Subsequent requests while the resquest is running are accumulated without causing new requests.
+Once the response arrives, all currently requesting clients are answered. Subsequent requests are answered immediately using the cached data.  
+
+```coffeescript
+Module.loader.get '/test.json', (data) ->
+  # Use data here.
+```
 
 # Development
 
