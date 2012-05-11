@@ -3,6 +3,8 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 language: ruby
 rvm:
+  - 1.8.7
+  - 1.9.2
   - 1.9.3
 script: bundle exec evergreen run
 
