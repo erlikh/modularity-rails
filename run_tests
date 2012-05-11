@@ -1,0 +1,6 @@
+cd demo/
+bundle
+echo 
+bundle exec rake konacha:run
+echo
+

@@ -1,3 +1,5 @@
+#= require modules/button
+
 # A button that counts how often it is clicked.
 # This is implemented as a subclass of Button, 
 # to take advantage of the already existing functionality there.

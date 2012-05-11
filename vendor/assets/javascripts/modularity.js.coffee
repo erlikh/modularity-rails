@@ -59,7 +59,7 @@ class window.modularity.Module
             @[methodName] = => method.apply(@, arguments)
 
         # Call constructor function from mixin.
-        mixin_data.mixin.constructor.apply @, arguments
+        mixin_data.mixin?.constructor?.apply(@, arguments)
 
 
   # MODULE EVENTS.
@@ -80,6 +80,7 @@ class window.modularity.Module
   # mixin = constructor of Draggable
   # self = Card
   @mixin: (mixin, p...) ->
+    alert("mixin not found") unless mixin
     @prototype.mixins or= []
     @prototype.mixins.push({mixin: mixin, params: p})
 
