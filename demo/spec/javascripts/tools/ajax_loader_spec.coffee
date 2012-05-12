@@ -4,7 +4,7 @@
 
 describe 'ajax_loader', ->
   
-  ajax_loader = rspy = spy_get = null
+  ajax_loader = spy = spy_get = null
   beforeEach ->
     ajax_loader = new modularity.AjaxLoader()
     spy = sinon.spy()
