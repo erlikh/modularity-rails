@@ -1,5 +1,5 @@
 # Autogrowing textarea.
-class modularity.AutogrowTextArea extends modularity.Module
+class window.modularity.AutogrowTextArea extends modularity.Module
 
   constructor: (container) ->
     super
