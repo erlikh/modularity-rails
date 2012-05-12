@@ -1,2 +1,1 @@
 Konacha.mochaOptions.ignoreLeaks = true
-

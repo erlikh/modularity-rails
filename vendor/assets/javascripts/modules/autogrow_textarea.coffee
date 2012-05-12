@@ -21,15 +21,11 @@ class modularity.AutogrowTextArea extends modularity.Module
 
   # Sets the height of the textarea according to the content.
   grow: =>
-    lines_count = modularity.AutogrowTextArea.lines @characters_per_line, @textarea.value
-    if lines_count >= this.min_rows
-      @textarea.rows = lines_count
-    else
-      @textarea.rows = this.min_rows
+    @textarea.rows = Math.max modularity.AutogrowTextArea.lines(@characters_per_line, @textarea.value), @min_rows
 
   # Returns the number of lines 
   @lines: (width, text) ->
     lines_count = 0
-    lines = text.split("\n")
+    lines = text.split(/\n/)
     lines_count += Math.floor((line.length / width) + 1) for line in lines
-
+    lines_count
