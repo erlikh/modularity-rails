@@ -4,20 +4,18 @@
 
 describe 'ajax_loader', ->
   
-  ajax_loader = null
+  ajax_loader = spy = spy_get = null
   beforeEach ->
     ajax_loader = new modularity.AjaxLoader()
+    spy = sinon.spy()
+    spy_get = sinon.spy jQuery, 'get'
+
+  afterEach ->
+    spy_get.restore()
 
   describe 'get', ->
 
     url = "/users/4"
-    spy = spy_get = null
-    beforeEach ->
-      spy_get = sinon.spy jQuery, 'get'
-      spy = sinon.spy()
-
-    afterEach ->
-      spy_get.restore()
 
     describe 'the data has already been loaded', ->
 

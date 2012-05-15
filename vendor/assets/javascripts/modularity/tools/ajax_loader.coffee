@@ -8,7 +8,7 @@
 #
 # Warning: Caches the responses, so once a request is cached,
 #          any new content on the same URL will not be visible!
-class modularity.AjaxLoader
+class window.modularity.AjaxLoader
 
   constructor: ->
     @cache = new modularity.Cache()
