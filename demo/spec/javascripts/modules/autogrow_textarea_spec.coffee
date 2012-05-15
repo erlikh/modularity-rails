@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require modules/autogrow_textarea
+#= require modularity/modules/autogrow_textarea
 
 
 describe 'AutogrowTextArea', ->

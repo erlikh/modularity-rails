@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require modules/button
+#= require modularity/modules/button
 
 
 describe 'Button', ->

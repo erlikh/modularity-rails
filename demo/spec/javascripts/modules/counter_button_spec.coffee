@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require modules/counter_button
+#= require modularity/modules/counter_button
 
 
 describe 'CounterButton', ->

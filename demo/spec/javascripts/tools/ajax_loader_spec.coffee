@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require tools/ajax_loader
+#= require modularity/tools/ajax_loader
 
 
 describe 'ajax_loader', ->

@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require mixins/closable
+#= require modularity/mixins/closable
 
 # A standard closable module.
 class window.ClosableModule1 extends modularity.Module

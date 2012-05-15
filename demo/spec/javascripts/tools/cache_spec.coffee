@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require tools/cache
+#= require modularity/tools/cache
 
 
 describe 'Cache', ->

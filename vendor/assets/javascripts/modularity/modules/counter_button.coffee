@@ -1,4 +1,4 @@
-#= require modules/button
+#= require modularity/modules/button
 
 # A button that counts how often it is clicked.
 # This is implemented as a subclass of Button, 

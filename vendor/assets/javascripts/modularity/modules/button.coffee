@@ -1,4 +1,4 @@
-#= require mixins/clickable
+#= require modularity/mixins/clickable
 
 # A button module.
 # Responds to clicks on the container element.
