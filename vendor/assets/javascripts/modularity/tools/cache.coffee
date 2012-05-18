@@ -32,14 +32,21 @@ class window.modularity.Cache
   getMany: Cache::get_many
 
 
-  # Replaces the cache with the given data.
-  replace_all: (data) ->
-    @cache = data
-  replaceAll: Cache::replace_all
-
-
   # Returns the number of cached objects.
   length: () ->
-    # TODO(KG): This doesn't work in IE8.
+    # NOTE(KG): This doesn't work in IE8.
     Object.keys(@cache).length
+
+
+  # Replaces the cache with the given data.
+  # When 'key' is given, treats 'data' as an array of objects, and indexes each element by the given key.
+  # When 'key' is not given, treats 'data' as an already indexed hash object.
+  replace_all: (data, key) ->
+    if key
+      # Key given --> index the data array.
+      @add(entry[key], entry) for entry in data
+    else
+      # Key not given --> use data as the new cache.
+      @cache = data
+  replaceAll: Cache::replace_all
 

@@ -72,3 +72,15 @@ describe 'Cache', ->
       cache.get('one').should.equal(2)
       cache.get('two').should.equal(3)
 
+    describe 'with 2 parameters', ->
+
+      it 'parses the given array, and indexes on the given key', ->
+        ten = {id: 10, value: 'ten'}
+        twelve = {id: 12, value: 'twelve'}
+
+        cache.replaceAll [ten, twelve], 'id'
+
+        cache.length().should.equal 2
+        cache.get(10).should.equal ten
+        cache.get(12).should.equal twelve
+
