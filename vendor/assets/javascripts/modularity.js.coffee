@@ -33,6 +33,8 @@ window.modularity = {
   # Returns the DOM object that is used to fire global events on.
   global_event_container: -> modularity.global_event_container_cache or= $(window)
 }
+modularity.bindGlobalEvent = modularity.bind_global_event
+modularity.fireGlobalEvent = modularity.fire_global_event
 
 
 class window.modularity.Module
@@ -69,13 +71,14 @@ class window.modularity.Module
     return unless modularity.assert event_type, "Module.bind_event: parameter 'event_type' is empty"
     return alert "Module.bind_event: parameter 'callback' must be a function, #{callback} (#{typeof callback}) given." unless typeof callback == 'function'
     @container.bind event_type, callback
+  bindEvent: Module::bind_event
 
   # Fires the given local event with the given data payload.
   fire_event: (event_type, data) =>
     modularity.assert event_type, 'Module.fire_event: You must provide the event type to fire.'
     return alert("Module.fire_event: Event type must be a string, #{event_type} (#{typeof event_type}) given.") unless typeof event_type == 'string'
     @container.trigger event_type, data ?= {}
-
+  fireEvent: Module::fire_event
 
   # mixin = constructor of Draggable
   # self = Card

@@ -19,7 +19,7 @@ class window.modularity.Cache
 
   # Looks up several entries at once.
   # Returns a hash of found entries, and a list of missing entries.
-  getMany: (keys) ->
+  get_many: (keys) ->
     result = { found: {}, missing: [] }
     for key in keys
       do (key) =>
@@ -29,11 +29,13 @@ class window.modularity.Cache
         else
           result.missing.push key
     result
+  getMany: Cache::get_many
 
 
   # Replaces the cache with the given data.
-  replaceAll: (data) ->
+  replace_all: (data) ->
     @cache = data
+  replaceAll: Cache::replace_all
 
 
   # Returns the number of cached objects.
