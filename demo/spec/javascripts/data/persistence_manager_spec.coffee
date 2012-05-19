@@ -23,7 +23,7 @@ describe 'PersistenceManager', ->
       persistence_manager.client_data.length().should.eql 0
 
     it 'stores the given base url', ->
-      persistence_manager.url.should.equal '/users'
+      persistence_manager.base_url.should.equal '/users'
 
     it 'stores the given index key', ->
       persistence_manager = new modularity.PersistenceManager {key: 'my_key', url: '/users'}
@@ -63,7 +63,7 @@ describe 'PersistenceManager', ->
       persistence_manager.create new_obj, ->
       jQuery.ajax.should.have.been.calledOnce
       args = jQuery.ajax.args[0][0]
-      args.url.should.equal '/users'
+      args.url.should.equal '/users.json'
       args.type.should.equal 'POST'
 
     it 'sends the object as payload', ->
@@ -97,7 +97,7 @@ describe 'PersistenceManager', ->
       persistence_manager.delete entry_1
       jQuery.ajax.should.have.been.calledOnce
       args = jQuery.ajax.args[0][0]
-      args.url.should.equal '/users/1'
+      args.url.should.equal '/users/1.json'
       args.type.should.equal 'DELETE'
 
     it 'removes the object from the client and server cache', ->
@@ -115,7 +115,7 @@ describe 'PersistenceManager', ->
   describe 'entry_url', ->
 
     it 'returns the url to access a single entry', ->
-      persistence_manager.entry_url(entry_1).should.equal '/users/1'
+      persistence_manager.entry_url(entry_1).should.equal '/users/1.json'
 
 
   describe 'load_all', ->
@@ -131,7 +131,7 @@ describe 'PersistenceManager', ->
       
     it 'makes a request to the INDEX action of the server', ->
       jQuery.ajax.should.have.been.calledOnce
-      jQuery.ajax.args[0][0].url.should.equal '/users'
+      jQuery.ajax.args[0][0].url.should.equal '/users.json'
 
     it 'provides the given data as parameters to the request', ->
       jQuery.ajax.args[0][0].data.should.eql {'q': 'foo'}
@@ -241,7 +241,7 @@ describe 'PersistenceManager', ->
       persistence_manager.update entry_1, ->
       jQuery.ajax.should.have.been.calledOnce
       args = jQuery.ajax.args[0][0]
-      args.url.should.equal '/users/1'
+      args.url.should.equal '/users/1.json'
       args.type.should.equal 'PUT'
 
     it 'sends only updated colums of the object as payload', (done) ->

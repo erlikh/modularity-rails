@@ -13,7 +13,7 @@ class modularity.PersistenceManager
     @client_data = new modularity.IndexedCache 'id'
     
     # The base url on the server. Expected to be a fully RESTful API.
-    @url = params.url
+    @base_url = params.url
 
     @key = params.key or 'id'
   
@@ -25,17 +25,23 @@ class modularity.PersistenceManager
     result
 
 
+  # Returns the URL to access the collection of objects.
+  collection_url: ->
+    "#{@base_url}.json"
+
+
   # Creates the given object on the server.
   create: (obj, callback) ->
     jQuery.ajax {
-      url: @url
+      url: @collection_url()
       type: 'POST'
       data: obj
       success: (server_obj) =>
         @server_data.add server_obj
         callback server_obj
     }
-    
+
+
   delete: (obj, callback) ->
     @client_data.delete obj
     @server_data.delete obj
@@ -49,7 +55,7 @@ class modularity.PersistenceManager
 
   # Returns the url to access a single entry.
   entry_url: (entry) ->
-    "#{@url}/#{entry[@key]}"
+    "#{@base_url}/#{entry[@key]}.json"
 
 
   # Returns the entry with the given key.
@@ -68,7 +74,7 @@ class modularity.PersistenceManager
 
     # No data on client at all --> load data from server.
     jQuery.ajax {
-      url: "#{@url}/#{key}"
+      url: "#{@base_url}/#{key}"
       cache: no
       success: (server_entry) =>
         @server_data.add server_entry
@@ -82,7 +88,7 @@ class modularity.PersistenceManager
   # Provides the given params as parameters to the GET request.
   load_all: (callback, params) ->
     jQuery.ajax {
-      url: @url
+      url: @collection_url()
       cache: no
       data: params
       success: (data) =>
