@@ -1,3 +1,4 @@
+#= require modularity/data/ajax_loader
 #= require modularity/data/indexed_cache
 #= require modularity/tools/object_tools
 
@@ -17,6 +18,8 @@ class modularity.PersistenceManager
 
     @key = params.key or 'id'
   
+    # For handling parallel requests to the server.
+    @loader = new modularity.AjaxLoader { cache: no }
 
 
   # Returns the URL to access the collection of objects.
@@ -67,15 +70,11 @@ class modularity.PersistenceManager
       return callback client_obj
 
     # No data on client at all --> load data from server.
-    jQuery.ajax {
-      url: "#{@base_url}/#{key}"
-      cache: no
-      success: (server_entry) =>
-        @server_data.add server_entry
-        client_entry = @clone server_entry
-        @client_data.add client_entry
-        callback client_entry
-    }
+    @loader.get "#{@base_url}/#{key}", (server_entry) =>
+      @server_data.add server_entry
+      client_entry = @clone server_entry
+      @client_data.add client_entry
+      callback client_entry
 
 
   # Loads all objects from the server.
@@ -101,6 +100,9 @@ class modularity.PersistenceManager
       @create obj, callback
 
 
+  # Updates the given object.
+  # The given object must exist on the server already,
+  # and have a proper value in the key attribute.
   update: (obj, callback) ->
     
     # Create a new hash, containing only the changed attributes between obj and it's replica in @server_data.
@@ -122,4 +124,4 @@ class modularity.PersistenceManager
         @server_data.add server_obj
         callback server_obj if callback
     }
-    
+
