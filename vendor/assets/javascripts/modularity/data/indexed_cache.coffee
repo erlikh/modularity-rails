@@ -1,4 +1,4 @@
-#= require modularity/tools/cache
+#= require modularity/data/cache
 
 # Provides fast and convenient retrieval of hash objects 
 # by indexing them on a given key column.

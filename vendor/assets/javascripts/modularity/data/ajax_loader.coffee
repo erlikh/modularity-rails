@@ -1,4 +1,4 @@
-#= require modularity/tools/cache
+#= require modularity/data/cache
 
 
 # A generic ajax loader for parallel GET requests.

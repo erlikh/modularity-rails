@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require modularity/tools/persistence_manager
+#= require modularity/data/persistence_manager
 #= require jquery
 
 

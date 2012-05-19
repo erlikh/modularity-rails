@@ -1,4 +1,4 @@
-#= require modularity/tools/indexed_cache
+#= require modularity/data/indexed_cache
 #= require modularity/tools/object_tools
 
 # Provides persistence services for data models.

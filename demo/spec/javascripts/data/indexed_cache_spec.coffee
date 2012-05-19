@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require modularity/tools/indexed_cache
+#= require modularity/data/indexed_cache
 
 
 describe 'IndexedCache', ->
