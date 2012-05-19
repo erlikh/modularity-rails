@@ -10,8 +10,12 @@
 #          any new content on the same URL will not be visible!
 class window.modularity.AjaxLoader
 
-  constructor: ->
+  constructor: (params = {}) ->
     @cache = new modularity.Cache()
+
+    # Whether to perform caching of data.
+    # Default: no.
+    @caching = params.caching
 
 
   get: (url, callback) ->
@@ -22,7 +26,10 @@ class window.modularity.AjaxLoader
       @cache.add url, [callback]
       return jQuery.get url, (data) =>
         cb(data) for cb in @cache.get(url)
-        @cache.add url, data
+        if @caching
+          @cache.add url, data
+        else
+          @cache.remove url
 
     # Request while the GET call is still pending --> 
     # add the given callback to the list of waiting callbacks.
