@@ -16,8 +16,8 @@ class modularity.IndexedCache
     @add(entry) for entry in entries
 
 
-  delete: (entry) ->
-    @cache.delete entry[@key]
+  remove: (entry) ->
+    @cache.remove entry[@key]
 
   get: (key) ->
     @cache.get key

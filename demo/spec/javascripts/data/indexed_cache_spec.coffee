@@ -35,10 +35,10 @@ describe 'IndexedCache', ->
       indexed_cache.cache.cache[2].should.eql entry_2
 
 
-  describe 'delete', ->
+  describe 'remove', ->
     it 'removes the given object from the server', ->
       indexed_cache.add entry_1
-      indexed_cache.delete entry_1
+      indexed_cache.remove entry_1
       indexed_cache.length().should.equal 0
 
   describe 'get', ->

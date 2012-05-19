@@ -27,18 +27,18 @@ describe 'Cache', ->
       (cache.cache['foo']).should.be.equal('new')
 
 
-  describe 'delete', ->
+  describe 'remove', ->
 
     it 'removes the entry with the given key from the chache', ->
       cache.add 'foo', 'bar'
-      cache.delete 'foo'
+      cache.remove 'foo'
       expect(cache.get('foo')).to.be.undefined
       cache.length().should.equal 0
 
     it 'only removes the given data and leaves the rest of the cache alone', ->
       cache.add 1, 'one'
       cache.add 2, 'two'
-      cache.delete 1
+      cache.remove 1
       expect(cache.get(1)).to.be.undefined
       expect(cache.get(2)).to.equal 'two'
       cache.length().should.equal 1

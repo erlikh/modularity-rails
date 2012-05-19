@@ -43,8 +43,8 @@ class modularity.PersistenceManager
 
 
   delete: (obj, callback) ->
-    @client_data.delete obj
-    @server_data.delete obj
+    @client_data.remove obj
+    @server_data.remove obj
     jQuery.ajax {
       url: @entry_url(obj)
       type: 'DELETE'

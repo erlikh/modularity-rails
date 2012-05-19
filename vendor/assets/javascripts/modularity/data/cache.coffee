@@ -14,11 +14,6 @@ class window.modularity.Cache
     @cache[key] = value
 
 
-  # Removes the entry with the given key.
-  delete: (key) =>
-    delete @cache[key]
-
-
   # Returns the entry with the given key from the cache, or NULL if no entry exists.
   get: (key) ->
     @cache[key]
@@ -42,6 +37,12 @@ class window.modularity.Cache
   # Returns the number of cached objects.
   length: () ->
     modularity.object_length @cache
+
+
+  # Removes the entry with the given key.
+  remove: (key) =>
+    delete @cache[key]
+
 
   # Replaces the cache with the given data.
   # When 'key' is given, treats 'data' as an array of objects, and indexes each element by the given key.
