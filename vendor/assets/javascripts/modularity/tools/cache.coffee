@@ -1,3 +1,5 @@
+#= require modularity/tools/object_tools
+
 # A generic cache.
 # Stores key-value pairs.
 class window.modularity.Cache

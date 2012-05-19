@@ -2,7 +2,7 @@
 #= require modularity/tools/object_tools
 
 # Provides persistence services for data models.
-class modularity.DataLoader
+class modularity.PersistenceManager
 
   constructor: (params) ->
     
