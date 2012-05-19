@@ -12,6 +12,11 @@ class window.modularity.Cache
     @cache[key] = value
 
 
+  # Removes the entry with the given key.
+  delete: (key) =>
+    delete @cache[key]
+
+
   # Returns the entry with the given key from the cache, or NULL if no entry exists.
   get: (key) ->
     @cache[key]

@@ -18,13 +18,30 @@ describe 'Cache', ->
   describe 'add', ->
 
     it 'stores the given data in the cache', ->
-      cache.add('foo', 'bar')
+      cache.add 'foo', 'bar'
       cache.cache.should.eql({'foo': 'bar'})
 
     it 'overwrites existing entries', ->
       cache.cache = {'foo', 'bar'}
       cache.add 'foo', 'new'
       (cache.cache['foo']).should.be.equal('new')
+
+
+  describe 'delete', ->
+
+    it 'removes the entry with the given key from the chache', ->
+      cache.add 'foo', 'bar'
+      cache.delete 'foo'
+      expect(cache.get('foo')).to.be.undefined
+      cache.length().should.equal 0
+
+    it 'only removes the given data and leaves the rest of the cache alone', ->
+      cache.add 1, 'one'
+      cache.add 2, 'two'
+      cache.delete 1
+      expect(cache.get(1)).to.be.undefined
+      expect(cache.get(2)).to.equal 'two'
+      cache.length().should.equal 1
 
 
   describe 'get', ->
