@@ -1,6 +1,25 @@
 #= require spec_helper
 #= require modularity/tools/object_tools
 
+
+describe 'clone', ->
+
+  clone = null
+  entry_1 = {id: 1, value: 'one'}
+  beforeEach ->
+    clone = modularity.clone_hash entry_1
+
+  it 'returns an object that has the same properties as the given object', ->
+    clone.id.should.equal 1
+    clone.value.should.equal 'one'
+
+  it 'returns an object that can be changed independently from the given object', ->
+    clone.id = 2
+    clone.value = 'two'
+    entry_1.id.should == 1
+    entry_1.value.should == 'one'
+
+
 describe 'object_tools', ->
 
   describe 'object_diff', ->

@@ -1,6 +1,16 @@
 # Returns an object that contains only the attributes 
 # that are different between obj_1 and obj_2.
 # Only looks for changed attributes, not missing attributes.
+
+
+# Returns a replica of the given hash.
+# Don't use this method for real objects with superclasses, prototypes, and stuff.
+modularity.clone_hash = (obj) ->
+  result = {}
+  result[key] = value for own key, value of obj
+  result
+
+
 modularity.object_diff = (obj_1, obj_2) ->
   result = {}
   for own key, value_2 of obj_2
@@ -13,3 +23,4 @@ modularity.object_diff = (obj_1, obj_2) ->
 modularity.object_length = (obj) ->
   # NOTE(KG): This doesn't work in IE8.
   Object.keys(obj).length
+

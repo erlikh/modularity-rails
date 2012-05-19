@@ -33,23 +33,6 @@ describe 'PersistenceManager', ->
       persistence_manager.key.should.equal 'id'
 
 
-  describe 'clone', ->
-
-    clone = null
-    beforeEach ->
-      clone = persistence_manager.clone entry_1
-
-    it 'returns an object that has the same properties as the given object', ->
-      clone.id.should.equal 1
-      clone.value.should.equal 'one'
-
-    it 'returns an object that can be changed independently from the given object', ->
-      clone.id = 2
-      clone.value = 'two'
-      entry_1.id.should == 1
-      entry_1.value.should == 'one'
-
-
   describe 'create', ->
     new_obj = {value: 'foo'}
 

@@ -18,12 +18,6 @@ class modularity.PersistenceManager
     @key = params.key or 'id'
   
 
-  # Returns a deep replica of the given object.
-  clone: (obj) ->
-    result = {}
-    result[key] = value for own key, value of obj
-    result
-
 
   # Returns the URL to access the collection of objects.
   collection_url: ->
