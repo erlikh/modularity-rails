@@ -231,6 +231,8 @@ describe 'DataLoader', ->
 
     beforeEach ->
       sinon.stub(jQuery, 'ajax').yieldsTo('success', entry_2)
+      server_entry = {id: 1, title: 'server title', desc: 'server desc'}
+      data_loader.server_data.add server_entry
       
     afterEach ->
       jQuery.ajax.restore()
@@ -242,10 +244,22 @@ describe 'DataLoader', ->
       args.url.should.equal '/users/1'
       args.type.should.equal 'PUT'
 
-    it 'sends the object as payload', ->
-      data_loader.update entry_1, ->
-      args = jQuery.ajax.args[0][0]
-      args.data.should.equal entry_1
+    it 'sends only updated colums of the object as payload', (done) ->
+      data_loader.load 1, (client_entry) ->
+        client_entry.title = 'client title'
+
+        data_loader.update client_entry
+
+
+        args = jQuery.ajax.args[0][0]
+        args.data.should.eql {id: 1, title: 'client title'}
+        done()
+
+    it "doesn't perform the call if nothing is changed", (done) ->
+      data_loader.load 1, (client_entry) ->
+        data_loader.update client_entry
+        jQuery.ajax.should.not.have.been.called
+        done()
 
     it 'updates the server cache immediately with the given object', ->
       data_loader.update entry_1, ->

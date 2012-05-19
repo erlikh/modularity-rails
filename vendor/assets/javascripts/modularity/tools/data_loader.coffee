@@ -1,4 +1,6 @@
 #= require modularity/tools/indexed_cache
+#= require modularity/tools/object_tools
+
 # Provides persistence services for data models.
 class modularity.DataLoader
 
@@ -102,8 +104,11 @@ class modularity.DataLoader
   update: (obj, callback) ->
     
     # Create a new hash, containing only the changed attributes between obj and it's replica in @server_data.
+    diff_obj = modularity.object_diff @server_data.get(obj[@key]), obj
+    return if modularity.object_length(diff_obj) == 0
     
     # Add key attribute.
+    diff_obj[@key] = obj[@key]
     
     # Update server_data version.
     @server_data.add obj
@@ -112,9 +117,9 @@ class modularity.DataLoader
     jQuery.ajax {
       url: @entry_url(obj)
       type: 'PUT'
-      data: obj
+      data: diff_obj
       success: (server_obj) =>
         @server_data.add server_obj
-        callback server_obj
+        callback server_obj if callback
     }
     

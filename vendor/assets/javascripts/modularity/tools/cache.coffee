@@ -39,9 +39,7 @@ class window.modularity.Cache
 
   # Returns the number of cached objects.
   length: () ->
-    # NOTE(KG): This doesn't work in IE8.
-    Object.keys(@cache).length
-
+    modularity.object_length @cache
 
   # Replaces the cache with the given data.
   # When 'key' is given, treats 'data' as an array of objects, and indexes each element by the given key.
