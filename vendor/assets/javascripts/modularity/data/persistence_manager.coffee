@@ -22,6 +22,11 @@ class modularity.PersistenceManager
     @loader = new modularity.AjaxLoader { cache: no }
 
 
+  # Adds the given data objects to the server cache.
+  add_all: (data) ->
+    @server_data.add_all data
+
+
   # Returns the URL to access the collection of objects.
   collection_url: ->
     "#{@base_url}.json"
@@ -65,14 +70,14 @@ class modularity.PersistenceManager
     # No data in client cache --> try to use server cache.
     server_obj = @server_data.get key
     if server_obj
-      client_obj = @clone server_obj
+      client_obj = modularity.clone_hash server_obj
       @client_data.add client_obj
       return callback client_obj
 
     # No data on client at all --> load data from server.
     @loader.get "#{@base_url}/#{key}", (server_entry) =>
       @server_data.add server_entry
-      client_entry = @clone server_entry
+      client_entry = modularity.clone_hash server_entry
       @client_data.add client_entry
       callback client_entry
 

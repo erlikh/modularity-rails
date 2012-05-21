@@ -33,6 +33,14 @@ describe 'PersistenceManager', ->
       persistence_manager.key.should.equal 'id'
 
 
+  describe 'add_all', ->
+
+    it 'adds the given data to the server_data cache', ->
+      spy = sinon.spy persistence_manager.server_data, 'add_all'
+      data = [{id: 1}, {id: 2}]
+      persistence_manager.add_all data
+      spy.should.have.been.calledOnce
+
   describe 'create', ->
     new_obj = {value: 'foo'}
 
