@@ -18,6 +18,18 @@ class window.modularity.AjaxLoader
     @caching = params.caching
 
 
+  # The different events that this widget can fire.
+  @events =
+    AJAX_LOADING: 'AJAX_LOADING'       # Called when an AJAX request starts.
+    AJAX_LOADED: 'AJAX_LOADED'         # Called when an AJAX request finishes.
+
+
+  # Makes the given AJAX call.
+  # Buffers the call if it's a GET request.
+  # Fires the AJAX events.
+  ajax: (options) ->
+
+
   get: (url, callback) ->
     cached_value = @cache.get url
 

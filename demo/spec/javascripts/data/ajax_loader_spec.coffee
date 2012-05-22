@@ -17,6 +17,18 @@ describe 'ajax_loader', ->
       loader = new modularity.AjaxLoader {caching: yes}
       loader.caching.should.be.true
 
+  describe 'ajax', ->
+
+    describe 'GET request'
+
+      it 'buffers the request'
+
+      it 'fires the events'
+
+      it ''
+
+    describe 'other requests'
+
 
   describe 'get', ->
     url = "/users/4"
@@ -42,6 +54,8 @@ describe 'ajax_loader', ->
         it 'returns without calling the callback', ->
           spy.should.not.have.been.called
 
+        it 'fires the LOADING event'
+
       describe 'the request is already in progress', ->
 
         beforeEach ->
@@ -60,6 +74,8 @@ describe 'ajax_loader', ->
         it 'does not make another ajax request', ->
           jQuery.get.should.not.have.been.called
 
+        it "doesn't fire the LOADING event again"
+
       describe 'ajax request successful', ->
 
         beforeEach ->
@@ -74,6 +90,8 @@ describe 'ajax_loader', ->
         it 'replaces the cache callbacks with returned data', ->
           ajax_loader.cache.get(url).should.equal 'result'
 
+        it 'fires the LOADED event'
+
       describe 'the data has already been loaded', ->
 
         it 'calls the callback with the cached data', ->
@@ -83,6 +101,8 @@ describe 'ajax_loader', ->
 
           spy.should.have.been.called
           spy.should.have.been.calledWith "my data"
+
+        it "doesn't fire any events"
 
 
     describe 'with caching disabled', ->
