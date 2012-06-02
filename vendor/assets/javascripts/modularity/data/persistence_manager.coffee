@@ -63,16 +63,8 @@ class modularity.PersistenceManager
   # Returns the entry with the given key.
   load: (key, callback) ->
     
-    # Try to use client_data cache.
-    client_obj = @client_data.get key
-    return callback(client_obj) if client_obj
-    
-    # No data in client cache --> try to use server cache.
-    server_obj = @server_data.get key
-    if server_obj
-      client_obj = modularity.clone_hash server_obj
-      @client_data.add client_obj
-      return callback client_obj
+    entry = @load_local key
+    return callback(entry) if entry
 
     # No data on client at all --> load data from server.
     @loader.get "#{@base_url}/#{key}", (server_entry) =>
@@ -94,7 +86,33 @@ class modularity.PersistenceManager
         callback()
     }
 
+
+  # Loads the entry synchronously from the cache.
+  # Doesn't fall back to the server.
+  load_local: (key) ->
+
+    # Try to use client_data cache.
+    client_obj = @client_data.get key
+    return client_obj if client_obj
+
+    # No data in client cache --> try to use server cache.
+    server_obj = @server_data.get key
+    return null unless server_obj
+    client_obj = modularity.clone_hash server_obj
+    @client_data.add client_obj
+    client_obj
  
+
+  # Returns all entries with the given keys.
+  load_many: (keys, callback) ->
+    result = []
+    for key in keys
+      do (key) =>
+        entry = @load_local key
+        result.push entry if entry
+    callback result
+
+
   # Saves the given object.
   # Does the right thing (create or update) dependent on
   # whether the object already has a key parameter.

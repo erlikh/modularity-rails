@@ -19,7 +19,7 @@ describe 'ajax_loader', ->
 
   describe 'ajax', ->
 
-    describe 'GET request'
+    describe 'GET request', ->
 
       it 'buffers the request'
 

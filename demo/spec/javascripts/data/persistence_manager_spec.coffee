@@ -41,6 +41,7 @@ describe 'PersistenceManager', ->
       persistence_manager.add_all data
       spy.should.have.been.calledOnce
 
+
   describe 'create', ->
     new_obj = {value: 'foo'}
 
@@ -134,6 +135,52 @@ describe 'PersistenceManager', ->
 
     it 'calls the given callback method when the data is available', ->
       loading_done_callback.should.have.been.calledOnce
+
+
+  describe 'load_local', ->
+
+    describe 'entry exists in client data cache', ->
+      it 'returns the entry from the @client_data cache if it exists there', ->
+        persistence_manager.client_data.add entry_1
+        result = persistence_manager.load_local 1
+        result.should.equal entry_1
+
+    describe 'entry exists in server data cache', ->
+
+      beforeEach ->
+        persistence_manager.server_data.add entry_1
+
+      it 'adds the entry to the client data cache', ->
+        persistence_manager.load_local 1
+        persistence_manager.client_data.length().should.equal 1
+        persistence_manager.client_data.get(1).should.eql entry_1
+
+      it 'returns the entry from the client data cache', ->
+        result = persistence_manager.load_local 1
+        client_cache_entry = persistence_manager.client_data.get 1
+        result.should.equal client_cache_entry
+
+      it 'returns a different hash than the server data, so that the user can make changes to it', ->
+        result = persistence_manager.load_local 1
+        server_cache_entry = persistence_manager.server_data.get 1
+        result.should.not.equal server_cache_entry
+
+    describe "entry doesn't exist in any cache", ->
+
+      it 'returns undefined', ->
+        expect(persistence_manager.load_local(1)).to.be.undefined
+
+
+  describe 'load_many', ->
+
+    describe 'all entries exists in the cache', ->
+      it 'returns the entries immediately', (done) ->
+        persistence_manager.add_all [entry_1, entry_2]
+        persistence_manager.load_many [1,2], (entries) ->
+          entries.length.should.equal 2
+          entries[0].should.eql entry_1
+          entries[1].should.eql entry_2
+          done()
 
 
   describe 'load', ->
