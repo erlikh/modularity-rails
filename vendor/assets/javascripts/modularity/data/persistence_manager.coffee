@@ -106,10 +106,15 @@ class modularity.PersistenceManager
   # Returns all entries with the given keys.
   load_many: (keys, callback) ->
     result = []
+    missing_keys = []
     for key in keys
       do (key) =>
         entry = @load_local key
-        result.push entry if entry
+        if entry
+          result.push entry
+        else
+          missing_keys.push key
+    alert "modularity.PersistenceManager.load_many(): Missing functionality to load from the server." if missing_keys.length > 0
     callback result
 
 
