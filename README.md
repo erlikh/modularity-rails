@@ -1,11 +1,11 @@
 # Modularity::Rails [![Build Status](https://secure.travis-ci.org/kevgo/modularity-rails.png)](http://travis-ci.org/#!/kevgo/modularity-rails)
 
-Makes the [Modularity CoffeeScript](http://github.com/kevgo/modularity-coffeescript) library available to 
-Rails 3.1 applications. 
+Makes the [Modularity CoffeeScript](http://github.com/kevgo/modularity-coffeescript) library and related modules available to
+Rails 3.1 applications.
 
-Modularity is a pattern and framework for lightweight object-oriented JavaScript 
-that allows to compose functionally rich web pages in a clean and testable way 
-out of well structured and reusable components.
+Modularity is a framework for lightweight component-oriented CoffeeScript.
+It allows to compose functionally rich web pages in a clean, intuitive, and testable way
+out of well structured and reusable components. It scales very well with complexity.
 
 
 ## Authors
@@ -15,7 +15,7 @@ out of well structured and reusable components.
 
 # Installation
 
-Add this line to your application's Gemfile:
+Load modularity in your application's Gemfile:
                          
 ```ruby
 gem 'modularity-rails'
